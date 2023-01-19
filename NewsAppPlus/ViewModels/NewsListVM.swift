@@ -36,10 +36,10 @@ class NewsListVM: ObservableObject {
             guard !n.urlToImage.isEmpty else { return }
             
             nm.getImage(urlString: n.urlToImage) { (data) in
-                guard data != nil else { return }
+                guard let data = data else { return }
                 
                 DispatchQueue.main.async {
-                    self.imageData[n.urlToImage]
+                    self.imageData[n.urlToImage] = data
                 }
             }
         }

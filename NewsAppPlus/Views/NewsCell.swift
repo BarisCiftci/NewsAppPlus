@@ -23,7 +23,7 @@ struct NewsCell: View {
                 .cornerRadius(12)
                 .shadow(color: .black, radius: 5, x: 5, y: 5)
             
-            Text(news.author)
+            Text("Author: \(news.author)")
                 .font(.subheadline)
                 .padding(10)
                 .foregroundColor(.black)
@@ -33,6 +33,7 @@ struct NewsCell: View {
             Text(news.title)
                 .font(.subheadline)
                 .foregroundColor(.black)
+                .fontWeight(.black)
                 
             Text(news.description)
                 .font(.caption)
