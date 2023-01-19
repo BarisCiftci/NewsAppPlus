@@ -15,6 +15,7 @@ struct NewsCell: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 10){
+            
             image
                 .resizable()
                 .aspectRatio(contentMode: .fill)
@@ -25,19 +26,15 @@ struct NewsCell: View {
             
             Text("Author: \(news.author)")
                 .font(.subheadline)
-                .padding(10)
-                .foregroundColor(.black)
-                .background(Color.gray)
                 .cornerRadius(10)
             
             Text(news.title)
                 .font(.subheadline)
-                .foregroundColor(.black)
                 .fontWeight(.black)
                 
             Text(news.description)
                 .font(.caption)
-                .foregroundColor(.black)
         }
+        
     }
 }

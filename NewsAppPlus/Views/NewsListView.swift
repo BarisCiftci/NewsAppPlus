@@ -16,6 +16,8 @@ struct NewsListView: View {
             news in
             NewsCell(news: news, image: Image(uiImage: self.imageData[news.urlToImage] == nil ? UIImage(systemName: "photo.fill")! : UIImage(data: self.imageData[news.urlToImage]!)!))
         }
+        .listStyle(.plain)
+
     }
 }
 
