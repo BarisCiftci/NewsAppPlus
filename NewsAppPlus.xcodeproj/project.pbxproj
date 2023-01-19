@@ -14,6 +14,8 @@
 		3DC95AC42979BA7D00DB3BE5 /* News.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC95AC32979BA7D00DB3BE5 /* News.swift */; };
 		3DC95AC72979BC3200DB3BE5 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC95AC62979BC3200DB3BE5 /* API.swift */; };
 		3DC95ACA2979BE2000DB3BE5 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC95AC92979BE2000DB3BE5 /* NetworkManager.swift */; };
+		3DC95ACE2979CB1200DB3BE5 /* NewsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC95ACD2979CB1200DB3BE5 /* NewsViewModel.swift */; };
+		3DC95AD02979CC1E00DB3BE5 /* NewsListVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC95ACF2979CC1E00DB3BE5 /* NewsListVM.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +27,8 @@
 		3DC95AC32979BA7D00DB3BE5 /* News.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = News.swift; sourceTree = "<group>"; };
 		3DC95AC62979BC3200DB3BE5 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		3DC95AC92979BE2000DB3BE5 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		3DC95ACD2979CB1200DB3BE5 /* NewsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsViewModel.swift; sourceTree = "<group>"; };
+		3DC95ACF2979CC1E00DB3BE5 /* NewsListVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsListVM.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +101,8 @@
 		3DC95AC12979B88100DB3BE5 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				3DC95ACD2979CB1200DB3BE5 /* NewsViewModel.swift */,
+				3DC95ACF2979CC1E00DB3BE5 /* NewsListVM.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -195,6 +201,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				3DC95AC42979BA7D00DB3BE5 /* News.swift in Sources */,
+				3DC95AD02979CC1E00DB3BE5 /* NewsListVM.swift in Sources */,
+				3DC95ACE2979CB1200DB3BE5 /* NewsViewModel.swift in Sources */,
 				3DC95AB42979B7B500DB3BE5 /* ContentView.swift in Sources */,
 				3DC95ACA2979BE2000DB3BE5 /* NetworkManager.swift in Sources */,
 				3DC95AC72979BC3200DB3BE5 /* API.swift in Sources */,

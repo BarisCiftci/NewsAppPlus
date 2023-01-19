@@ -12,7 +12,7 @@ struct News: Decodable {
     let title: String?
     let description: String?
     let urlToImage: String?
-    let url: String
+    let url: String?
 }
 
 struct NewsEnvelope: Decodable {
