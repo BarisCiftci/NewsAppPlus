@@ -24,9 +24,12 @@ struct NewsCell: View {
                 .cornerRadius(12)
                 .shadow(color: .black, radius: 5, x: 5, y: 5)
             
-            Text("Author: \(news.author)")
-                .font(.subheadline)
+            HStack {
+                Text("Author: \(news.author)")
+                    .font(.subheadline)
                 .cornerRadius(10)
+                
+            }
             
             Text(news.title)
                 .font(.subheadline)
@@ -34,6 +37,13 @@ struct NewsCell: View {
                 
             Text(news.description)
                 .font(.caption)
+        }
+        .sheet(isPresented: $isPresented) {
+            NewsArticleWebView(newsUrl: self.news.url)
+        }
+        
+        .onTapGesture{
+            self.isPresented.toggle()
         }
         
     }

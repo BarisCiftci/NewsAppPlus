@@ -11,17 +11,20 @@ struct NewsListHeader: View {
     var body: some View {
         VStack(alignment: .leading) {
             HStack{
-                Image(systemName: "largecircle.fill.circle")
+                Image(systemName: "plus.circle.fill")
+                    .foregroundColor(.primary)
                 Text("NewsApp")
                     .fontWeight(.black)
-                Image(systemName: "plus.circle.fill")
+                    .foregroundColor(.primary)
+                
+                
                 Spacer()
             }
-            .foregroundColor(.black)
+            .foregroundColor(.primary)
             .font(.largeTitle)
             
             Text("Top Headlines")
-                .foregroundColor(.gray)
+                .foregroundColor(.primary)
                 .font(.largeTitle)
         }
         .padding(.horizontal)
