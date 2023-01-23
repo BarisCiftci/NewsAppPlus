@@ -22,21 +22,24 @@ struct NewsCell: View {
                 .frame(width: UIScreen.main.bounds.width - 30, height: 200, alignment: .center)
                 .clipped()
                 .cornerRadius(12)
-                .shadow(color: .black, radius: 5, x: 5, y: 5)
             
             HStack {
                 Text("Author: \(news.author)")
-                    .font(.subheadline)
-                .cornerRadius(10)
+                    .padding(.top, 10)
+                    .font(.footnote)
+                    .fontWeight(.bold)
+                    .foregroundColor(.gray)
                 
             }
             
             Text(news.title)
-                .font(.subheadline)
+                .font(.title)
                 .fontWeight(.black)
+                .lineLimit(3)
                 
             Text(news.description)
-                .font(.caption)
+                .font(.headline)
+                .padding(.bottom)
         }
         .sheet(isPresented: $isPresented) {
             NewsArticleWebView(newsUrl: self.news.url)

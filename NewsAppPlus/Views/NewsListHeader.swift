@@ -12,20 +12,27 @@ struct NewsListHeader: View {
         VStack(alignment: .leading) {
             HStack{
                 Image(systemName: "plus.circle.fill")
+                    .font(.system(size: 76))
+                    .foregroundColor(.pink)
+                
+                VStack (alignment: .leading) {
+                    Text("NewsApp")
+                        .fontWeight(.black)
                     .foregroundColor(.primary)
-                Text("NewsApp")
-                    .fontWeight(.black)
+                    .font(.largeTitle)
+                    
+                    
+                    Text("Top Headlines")
+                        .fontWeight(.regular)
                     .foregroundColor(.primary)
+                }
+              
                 
                 
                 Spacer()
             }
-            .foregroundColor(.primary)
-            .font(.largeTitle)
             
-            Text("Top Headlines")
-                .foregroundColor(.primary)
-                .font(.largeTitle)
+            
         }
         .padding(.horizontal)
         .padding(.vertical, 10)
