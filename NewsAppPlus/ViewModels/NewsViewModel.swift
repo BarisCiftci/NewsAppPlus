@@ -26,6 +26,10 @@ struct NewsViewModel{
         return news.url ?? ""
     }
     
+    var source: String {
+        return news.source.name 
+    }
+    
     var urlToImage: String {
         return news.urlToImage ?? "https://media.discordapp.net/attachments/989268324884049960/1061765655889719326/6AC54581-051B-4930-B145-B38B37DAA3DF_1_105_c.jpeg"
     }

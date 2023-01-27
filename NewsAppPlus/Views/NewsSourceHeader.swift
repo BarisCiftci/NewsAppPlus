@@ -1,18 +1,18 @@
 //
-//  NewsListHeader.swift
+//  NewsSourceHeader.swift
 //  NewsAppPlus
 //
-//  Created by Baris Ciftci on 19/01/2023.
+//  Created by Baris Ciftci on 27/01/2023.
 //
 
 import SwiftUI
 
-struct NewsListHeader: View {
+struct NewsSourceHeader: View {
     var body: some View {
         VStack(alignment: .leading) {
             HStack{
                 Image(systemName: "plus.circle.fill")
-                    .font(.largeTitle)
+                    .font(.system(size: 76))
                     .foregroundColor(.pink)
                 
                 VStack (alignment: .leading) {
@@ -22,7 +22,7 @@ struct NewsListHeader: View {
                     .font(.largeTitle)
                     
                     
-                    Text("Top Headlines")
+                    Text("Sources")
                         .fontWeight(.regular)
                     .foregroundColor(.primary)
                 }
@@ -39,8 +39,8 @@ struct NewsListHeader: View {
     }
 }
 
-struct NewsListHeader_Previews: PreviewProvider {
+struct NewsSourceHeader_Previews: PreviewProvider {
     static var previews: some View {
-        NewsListHeader()
+        NewsSourceHeader()
     }
 }
