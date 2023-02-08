@@ -15,7 +15,7 @@ struct NewsViewModel{
     }
     
     var description: String {
-        return news.description ?? ""
+        return news.description ?? "Unknown"
     }
     
     var title: String {

@@ -17,8 +17,7 @@ struct NewsHome: View {
     
     var body: some View {
         VStack {
-            NewsListHeader()
-            NewsListView(newsCollection: self.newsListVM.news, imageData: self.newsListVM.imageData)
+            NewsSourceListView(newsCollection: self.newsListVM.news)
         }
     }
 }
