@@ -16,9 +16,15 @@ class NetworkManager {
     func getNews(completion: @escaping (([News]?) -> Void)) {
         
         // urlString: is the main link to the whole data
-        let urlString = "\(baseUrlString)\(usTopHeadline)&apiKey=\(API.key)"
+        let urlString = [
+            "\(baseUrlString)\(usTopHeadline)&category=business&apiKey=\(API.key)",
+            "\(baseUrlString)\(usTopHeadline)&category=sport&apiKey=\(API.key)",
+            "\(baseUrlString)\(usTopHeadline)&category=health&apiKey=\(API.key)",
+            "\(baseUrlString)\(usTopHeadline)&category=science&apiKey=\(API.key)"
         
-        guard  let url = URL(string: urlString) else {
+        ]
+        
+        guard  let url = URL(string: urlString[1]) else {
             completion(nil)
             return
         }
