@@ -19,15 +19,15 @@ struct NewsViewModel{
     }
     
     var title: String {
-        return news.title ?? ""
+        return news.title ?? "Unknown"
     }
     
     var url: String {
-        return news.url ?? ""
+        return news.url ?? "Unknown"
     }
     
     var source: String {
-        return news.source.name 
+        return news.source.name  ?? "Unknown"
     }
     
     var urlToImage: String {

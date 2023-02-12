@@ -17,7 +17,7 @@ struct News: Decodable {
 }
 
 struct Source: Codable {
-    var name: String
+    var name: String?
 }
 
 struct NewsEnvelope: Decodable {

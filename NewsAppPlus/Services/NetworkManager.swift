@@ -21,10 +21,9 @@ class NetworkManager {
             "\(baseUrlString)\(usTopHeadline)&category=sport&apiKey=\(API.key)",
             "\(baseUrlString)\(usTopHeadline)&category=health&apiKey=\(API.key)",
             "\(baseUrlString)\(usTopHeadline)&category=science&apiKey=\(API.key)"
-        
         ]
         
-        guard  let url = URL(string: urlString[1]) else {
+        guard let url = URL(string: urlString[1]) else {
             completion(nil)
             return
         }

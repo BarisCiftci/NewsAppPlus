@@ -17,7 +17,11 @@ struct NewsSourceListView: View {
             
             List(self.newsCollection, id: \.url) {
                 news in
-                NewsSourceCell(news: news)
+                NavigationLink(destination: NewsHome()) {
+                    NewsSourceCell(news: news)
+                }
+                
+                
             }
             .scrollIndicators(.hidden)
             .listStyle(.plain)
