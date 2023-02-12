@@ -21,16 +21,13 @@ struct NewsCell: View {
                 .aspectRatio(contentMode: .fill)
                 .frame(width: UIScreen.main.bounds.width - 30, height: 200, alignment: .center)
                 .cornerRadius(20)
-            Text(news.author)
+            Text("Author: \(news.author)")
                 .font(.subheadline)
-                .padding(10)
-                .foregroundColor(.white)
-                .background(Color.gray)
-                .cornerRadius(10)
             
             Text(news.title)
-                .font(.subheadline)
-                .foregroundColor(.black)
+                .font(.title)
+                .fontWeight(.bold)
+                .lineLimit(2)
                 .sheet(isPresented: $isPresented) {
                     NewsArticleWebView(newsUrl: self.news.url)
                 }
@@ -39,8 +36,7 @@ struct NewsCell: View {
                 }
             
             Text(news.description)
-                .font(.caption)
-                .foregroundColor(.black)
+                .font(.body)
         }
     }
 }

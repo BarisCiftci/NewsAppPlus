@@ -22,9 +22,3 @@ struct NewsHome: View {
         }
     }
 
-
-struct NewsHome_Previews: PreviewProvider {
-    static var previews: some View {
-        NewsHome()
-    }
-}
