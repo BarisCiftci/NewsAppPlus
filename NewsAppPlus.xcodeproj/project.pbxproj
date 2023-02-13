@@ -139,11 +139,11 @@
 			children = (
 				3DC95AD12979DFA200DB3BE5 /* NewsListHeader.swift */,
 				3DC95AD32979E15300DB3BE5 /* NewsSourceHome.swift */,
-				3DFBF57529992B7100C9E6D9 /* NewsHome.swift */,
 				3DC95AD52979E21D00DB3BE5 /* NewsSourceListView.swift */,
-				3DFBF571299926ED00C9E6D9 /* NewsCell.swift */,
-				3DFBF573299928BF00C9E6D9 /* NewsListView.swift */,
 				3DC95AD92979E24200DB3BE5 /* NewsSourceCell.swift */,
+				3DFBF57529992B7100C9E6D9 /* NewsHome.swift */,
+				3DFBF573299928BF00C9E6D9 /* NewsListView.swift */,
+				3DFBF571299926ED00C9E6D9 /* NewsCell.swift */,
 				3DBFFD26297C6914005A9F10 /* NewsArticleWebView.swift */,
 			);
 			path = Views;
