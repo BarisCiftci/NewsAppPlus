@@ -14,7 +14,7 @@ struct NewsListView: View {
     var body: some View {
         List(self.newsCollection, id: \.url) {
             news in
-            NewsCell(news: news, image: Image(uiImage: self.imageData[news.urlToImage] == nil ? UIImage(systemName: "photo.artframe")! : UIImage(data: self.imageData[news.urlToImage]!)!))
+            NewsCell(news: news, image: Image(uiImage: (self.imageData[news.urlToImage] == nil ? UIImage(systemName: "photo.artframe")! : UIImage(data: self.imageData[news.urlToImage]!)) ?? UIImage(systemName: "photo.artframe")!))
         }
         
         .listStyle(.plain)
