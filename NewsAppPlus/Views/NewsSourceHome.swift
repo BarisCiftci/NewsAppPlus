@@ -20,8 +20,9 @@ struct NewsSourceHome: View {
             NewsSourceListView(newsCollection: self.newsListVM.news)
         }
         .refreshable {
-            newsListVM.load()
+                newsListVM.load()
         }
+        
     }
 }
 

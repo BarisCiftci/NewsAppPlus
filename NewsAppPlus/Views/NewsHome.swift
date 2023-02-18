@@ -19,9 +19,7 @@ struct NewsHome: View {
             VStack {
                 NewsListView(newsCollection: self.newsListVM.news, imageData: self.newsListVM.imageData)
             }
-            .refreshable {
-                newsListVM.load()
-            }
+            
         }
     }
 
