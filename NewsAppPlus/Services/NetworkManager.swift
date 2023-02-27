@@ -11,7 +11,6 @@ import Foundation
 class NetworkManager {
     private let baseUrlString = "https://newsapi.org/v2/"
     private let usTopHeadline = "top-headlines?"
-    //https://newsapi.org/v2/top-headlines?category=sport&apiKey=e7c00742a71b450b9403d52090fc70ce
     
     func getNews(completion: @escaping (([NewsDto]?) -> Void)) {
         
