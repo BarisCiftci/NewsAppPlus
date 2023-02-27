@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct NewsSourceCell: View {
-    let news: NewsViewModel
+    let news: News
     
     var body: some View {
         VStack(alignment: .leading, spacing: 10){

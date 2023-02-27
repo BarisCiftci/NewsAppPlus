@@ -8,12 +8,13 @@
 import SwiftUI
 
 struct NewsCell: View {
-    
-    let news: NewsViewModel
+    let news: News
     let image: Image
     
     @State private var isPresented: Bool = false
-    @State private var bookmarkButtonPressed: Bool = false
+    @State private var favoriteButtonPressed: Bool = false
+    
+    
     
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
@@ -24,26 +25,20 @@ struct NewsCell: View {
                     .aspectRatio(contentMode: .fill)
                     .frame(width: UIScreen.main.bounds.width - 30, height: 200, alignment: .center)
                     .cornerRadius(20)
+        
             
-                    .overlay(
-                        Button(action: {
-                            bookmarkButtonPressed.toggle()
-                        }, label: {
-                            HStack {
-                                Image(systemName: "bookmark.fill")
-                                    .foregroundColor(bookmarkButtonPressed ? Color.green : Color.gray)
-                                    .font(.system(size: 48))
-                                    .font(.body)
-                                    .padding(.horizontal, 30)
-                                    .offset(y: -8)
-                                .shadow(radius: 2, x: 4 , y: 4)
-                            }
-                        }), alignment: .topLeading
-                    )
-                
-             
+            HStack {
                 Text("Author: \(news.author)")
                     .font(.subheadline)
+                
+                Spacer()
+                
+                Button {
+                    favoriteButtonPressed.toggle()
+                } label: {
+                    IsFavorite(isFavorite: $favoriteButtonPressed)
+                }
+            }
             
             
             Text(news.title)

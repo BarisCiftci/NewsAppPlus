@@ -9,15 +9,15 @@ import SwiftUI
 
 struct NewsHome: View {
     
-    @ObservedObject private var newsListVM = NewsListVM()
+    @ObservedObject private var newsListVM = NewsListViewModel()
     
     init() {
-            newsListVM.load()
+            newsListVM.fetchNews()
         }
         
         var body: some View {
             VStack {
-                NewsListView(newsCollection: self.newsListVM.news, imageData: self.newsListVM.imageData)
+                NewsListView(isFavorite: false, newsCollection: self.newsListVM.news, imageData: self.newsListVM.imageData)
             }
             
         }

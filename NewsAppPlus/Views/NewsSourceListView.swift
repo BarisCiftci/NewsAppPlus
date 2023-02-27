@@ -9,7 +9,7 @@ import SwiftUI
 
 struct NewsSourceListView: View {
     
-    let newsCollection: [NewsViewModel]
+    let newsCollection: [News]
     
     var body: some View {
         

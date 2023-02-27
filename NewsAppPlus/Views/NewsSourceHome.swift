@@ -9,10 +9,10 @@ import SwiftUI
 
 struct NewsSourceHome: View {
     
-    @ObservedObject private var newsListVM = NewsListVM()
+    @ObservedObject private var newsListVM = NewsListViewModel()
     
     init() {
-        newsListVM.load()
+        newsListVM.fetchNews()
     }
     
     var body: some View {
@@ -20,7 +20,7 @@ struct NewsSourceHome: View {
             NewsSourceListView(newsCollection: self.newsListVM.news)
         }
         .refreshable {
-                newsListVM.load()
+                newsListVM.fetchNews()
         }
         
     }

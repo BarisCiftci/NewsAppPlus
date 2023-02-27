@@ -10,23 +10,20 @@ import Foundation
 // Creating Network layer
 class NetworkManager {
     private let baseUrlString = "https://newsapi.org/v2/"
-    private let usTopHeadline = "top-headlines?country=us"
+    private let usTopHeadline = "top-headlines?"
+    //https://newsapi.org/v2/top-headlines?category=sport&apiKey=e7c00742a71b450b9403d52090fc70ce
     
-    
-    func getNews(completion: @escaping (([News]?) -> Void)) {
+    func getNews(completion: @escaping (([NewsDto]?) -> Void)) {
         
         // urlString: is the main link to the whole data
-        let urlString = [
-            "\(baseUrlString)\(usTopHeadline)&category=business&apiKey=\(API.key)",
+        let urlList = [
+            "\(baseUrlString)\(usTopHeadline)sources=techcrunch&apiKey=\(API.key)",
             "\(baseUrlString)\(usTopHeadline)&category=sport&apiKey=\(API.key)",
             "\(baseUrlString)\(usTopHeadline)&category=health&apiKey=\(API.key)",
             "\(baseUrlString)\(usTopHeadline)&category=science&apiKey=\(API.key)"
         ]
         
-        guard let url = URL(string: urlString[0]) else {
-            completion(nil)
-            return
-        }
+        let url = URL(string: urlList[0])!
         
         URLSession.shared.dataTask(with: url) { (data, response, error) in
             guard error == nil, let data = data else {
@@ -34,8 +31,8 @@ class NetworkManager {
                 return
             }
             
-            let newsRes = try? JSONDecoder().decode(NewsEnvelope.self, from: data)
-            newsRes == nil ? completion(nil) : completion(newsRes!.articles)
+            let newsResponse = try? JSONDecoder().decode(NewsResponse.self, from: data)
+            newsResponse == nil ? completion(nil) : completion(newsResponse!.articles)
         }.resume()
         
     }
