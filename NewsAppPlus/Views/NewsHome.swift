@@ -17,7 +17,10 @@ struct NewsHome: View {
         
         var body: some View {
             VStack {
-                NewsListView(isFavorite: false, newsCollection: self.newsListVM.news, imageData: self.newsListVM.imageData)
+                NewsListView(isFavorite: true, newsCollection: self.newsListVM.news, imageData: self.newsListVM.imageData)
+            }
+            .refreshable {
+                    newsListVM.fetchNews()
             }
             
         }

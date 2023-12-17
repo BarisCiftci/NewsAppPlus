@@ -15,14 +15,9 @@ class NetworkManager {
     func getNews(completion: @escaping (([NewsDto]?) -> Void)) {
         
         // urlString: is the main link to the whole data
-        let urlList = [
-            "\(baseUrlString)\(usTopHeadline)sources=techcrunch&apiKey=\(API.key)",
-            "\(baseUrlString)\(usTopHeadline)&category=sport&apiKey=\(API.key)",
-            "\(baseUrlString)\(usTopHeadline)&category=health&apiKey=\(API.key)",
-            "\(baseUrlString)\(usTopHeadline)&category=science&apiKey=\(API.key)"
-        ]
-        
-        let url = URL(string: urlList[0])!
+        //https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=API_KEY
+       
+        let url = URL(string: "\(baseUrlString)\(usTopHeadline)q=apple&from=2023-12-07&to=2023-12-07&sortBy=popularity&apiKey=\(API.key)")!
         
         URLSession.shared.dataTask(with: url) { (data, response, error) in
             guard error == nil, let data = data else {

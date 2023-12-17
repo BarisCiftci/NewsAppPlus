@@ -22,6 +22,7 @@ struct NewsListView: View {
     let newsCollection: [News]
     let imageData: [String: Data]
     var body: some View {
+        NewsListHeader()
         FavoriteButton(isSet: $isFavorite)
         List(self.filteredNews, id: \.url) {
             news in
