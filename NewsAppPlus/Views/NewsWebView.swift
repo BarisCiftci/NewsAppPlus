@@ -1,15 +1,14 @@
 //
-//  SwiftUIWebView.swift
-//  NewsAppPlus
+//  NewsWebView.swift
+//  TestNewsApp
 //
-//  Created by Baris Ciftci on 21/01/2023.
+//  Created by Baris Ciftci on 03/01/2024.
 //
 
-import Foundation
 import SwiftUI
 import WebKit
 
-struct SwiftUIWebView: UIViewRepresentable {
+struct NewsWebView: UIViewRepresentable {
     
     var urlString: String
     
