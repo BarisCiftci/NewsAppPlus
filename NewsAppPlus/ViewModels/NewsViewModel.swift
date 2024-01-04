@@ -9,13 +9,11 @@ import Foundation
 
 class NewsViewModel: ObservableObject {
     @Published var articles: [Article] = []
+    private let urlManager: UrlManager = UrlManager()
     
     func fetchNews() async {
-        guard let url = URL(string: "https://newsapi.org/v2/top-headlines?q=apple&from=2023-12-07&to=2023-12-07&sortBy=popularity&apiKey=e7c00742a71b450b9403d52090fc70ce") 
-        else { return }
-        
         do {
-            let (data, _) = try await URLSession.shared.data(from: url)
+            let (data, _) = try await URLSession.shared.data(from: urlManager.getUrl())
             let newsResponse = try JSONDecoder().decode(NewsResponse.self, from: data)
             DispatchQueue.main.async {
                 self.articles = newsResponse.articles
