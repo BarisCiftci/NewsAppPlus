@@ -20,17 +20,8 @@ struct NewsView: View {
                 // Display article details
                 VStack(alignment: .leading) {
                     // Display article image
-                    ZStack {
-                        NavigationLink("", destination: NewsWebView(urlString: article.url))
-                        AsyncImage(url: URL(string: article.urlToImage ?? "https://media.discordapp.net/attachments/989268324884049960/1061765655889719326/6AC54581-051B-4930-B145-B38B37DAA3DF_1_105_c.jpeg")) { image in
-                            image.resizable()
-                        }
-                    placeholder: {
-                        Image(systemName: "photo.artframe")
-                            .resizable()
-                    }.frame(height: 200)
-                        
-                    }
+                    let imageUrl = article.urlToImage ?? "https://media.discordapp.net/attachments/989268324884049960/1061765655889719326/6AC54581-051B-4930-B145-B38B37DAA3DF_1_105_c.jpeg"
+                    ArticleImage(imageUrl: imageUrl, articleUrl: article.url)
                     
                     // Display article content
                     ArticleContent(newArticle: article)
@@ -73,5 +64,24 @@ struct ArticleContent: View {
             .font(.footnote)
             .bold()
             .foregroundStyle(.gray)
+    }
+}
+
+struct ArticleImage: View {
+    var imageUrl: String
+    var articleUrl: String
+    
+    var body: some View {
+        ZStack {
+            NavigationLink("", destination: NewsWebView(urlString: articleUrl))
+            AsyncImage(url: URL(string: imageUrl)) { image in
+                image.resizable()
+            }
+        placeholder: {
+            Image(systemName: "photo.artframe")
+                .resizable()
+        }.frame(height: 200)
+            
+        }
     }
 }
