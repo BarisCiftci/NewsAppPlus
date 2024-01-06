@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct UrlManager {
+class UrlManager {
     private let baseUrl = "https://newsapi.org/"
     private let topHeadlinesUrl = "v2/top-headlines?"
     private let categoryUrl = "q=apple&from=2023-12-07&to=2023-12-07&sortBy=popularity&apiKey="

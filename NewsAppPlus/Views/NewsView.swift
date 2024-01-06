@@ -14,36 +14,26 @@ struct NewsView: View {
     var body: some View {
         NavigationView {
             
+            // Display list of articles displayArticles
             List(newsViewModel.articles, id: \.source.name) { article in
                 
+                // Display article details
                 VStack(alignment: .leading) {
+                    // Display article image
                     ZStack {
                         NavigationLink("", destination: NewsWebView(urlString: article.url))
                         AsyncImage(url: URL(string: article.urlToImage ?? "https://media.discordapp.net/attachments/989268324884049960/1061765655889719326/6AC54581-051B-4930-B145-B38B37DAA3DF_1_105_c.jpeg")) { image in
-                                            image
-                                .resizable()
-                                        } placeholder: {
-                                            Image(systemName: "photo.artframe")
-                                                .resizable()
-        }
-                                    .frame(height: 200)
+                            image.resizable()
+                        }
+                    placeholder: {
+                        Image(systemName: "photo.artframe")
+                            .resizable()
+                    }.frame(height: 200)
+                        
                     }
-                    Text(article.title ?? "Unknown Title")
-                        .font(.headline)
-                        .fontWeight(.black)
                     
-                    Text(article.description ?? "Unknown Title")
-                        .font(.subheadline)
-                        .lineLimit(2)
-                    
-                    Text(article.source.name)
-                        .font(.footnote)
-                        .foregroundStyle(.pink)
-                    
-                    Text(article.author ?? "Unknown Author")
-                        .font(.footnote)
-                        .bold()
-                        .foregroundStyle(.gray)
+                    // Display article content
+                    ArticleContent(newArticle: article)
                 }
             }
             .listStyle(.plain)
@@ -61,4 +51,27 @@ struct NewsView: View {
 
 #Preview {
     NewsView()
+}
+
+struct ArticleContent: View {
+    
+    var newArticle: Article
+    
+    var body: some View {
+        Text(newArticle.title ?? "Unknown Title")
+            .font(.headline)
+            .fontWeight(.black)
+        Text(newArticle.description ?? "Unknown description")
+            .font(.subheadline)
+            .lineLimit(2)
+        
+        Text(newArticle.source.name)
+            .font(.footnote)
+            .foregroundStyle(.pink)
+        
+        Text(newArticle.author ?? "Unknown Author")
+            .font(.footnote)
+            .bold()
+            .foregroundStyle(.gray)
+    }
 }
