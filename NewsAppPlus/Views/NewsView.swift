@@ -20,7 +20,9 @@ struct NewsView: View {
                 
                 // Display article details
                 ArticleDetails(newArticle: article)
+                
             }
+            
             .listStyle(.plain)
             .task {
                 await newsViewModel.fetchNews()
@@ -29,7 +31,7 @@ struct NewsView: View {
                 await newsViewModel.fetchNews()
             }
             .navigationTitle(navigationTitle)
-
+            
         }
     }
 }
@@ -42,6 +44,7 @@ private struct ArticleDetails: View {
             // Display article image
             let imageUrl = newArticle.urlToImage ?? newArticle.defaultValue().urlToImage
             ArticleImage(newImageUrl: imageUrl, newArticleUrl: newArticle.url)
+            
             
             // Display article content
             ArticleContent(newArticle: newArticle)
@@ -58,14 +61,16 @@ private struct ArticleImage: View {
             NavigationLink("", destination: NewsWebView(urlString: newArticleUrl))
             AsyncImage(url: URL(string: newImageUrl)) { image in
                 image.resizable()
+                    .modifier(ImageModifier())
             }
         placeholder: {
             Image(systemName: "photo.artframe")
                 .resizable()
-        }.frame(height: 200)
+                .modifier(ImageModifier())
+        }
             
         }
-    }
+    } 
 }
 
 private struct ArticleContent: View {
@@ -90,8 +95,14 @@ private struct ArticleContent: View {
     }
 }
 
-
-
+struct ImageModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .aspectRatio(contentMode: .fill)
+            .frame(width: UIScreen.main.bounds.width * 0.95/1, height: UIScreen.main.bounds.height * 1/3.5)
+            .cornerRadius(12)
+    }
+}
 
 #Preview {
     NewsView()
