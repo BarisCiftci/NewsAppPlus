@@ -31,7 +31,8 @@ struct Article: Codable{
                 url: "https://media.discordapp.net/attachments/989268324884049960/1061765655889719326/6AC54581-051B-4930-B145-B38B37DAA3DF_1_105_c.jpeg",
                 urlToImage: "https://media.discordapp.net/attachments/989268324884049960/1061765655889719326/6AC54581-051B-4930-B145-B38B37DAA3DF_1_105_c.jpeg",
                 publishedAt: "Unknown Date",
-                content: "Unknown Content"
+                content: "Unknown Content",
+                sourceName: "Unknown Source"
             )
         }
 }
@@ -49,4 +50,5 @@ struct DefaultValue {
     let urlToImage: String
     let publishedAt: String
     let content: String
+    let sourceName: String
 }
