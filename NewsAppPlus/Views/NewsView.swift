@@ -16,7 +16,7 @@ struct NewsView: View {
         NavigationView {
             
             // Display list of articles displayArticles
-            List(newsViewModel.articles, id: \.source.name) { article in
+            List(newsViewModel.articles, id: \.source.id) { article in
                 
                 // Display article details
                 ArticleDetails(newArticle: article)
@@ -40,7 +40,7 @@ private struct ArticleDetails: View {
     var body: some View {
         VStack(alignment: .leading) {
             // Display article image
-            let imageUrl = newArticle.urlToImage ?? "https://media.discordapp.net/attachments/989268324884049960/1061765655889719326/6AC54581-051B-4930-B145-B38B37DAA3DF_1_105_c.jpeg"
+            let imageUrl = newArticle.urlToImage ?? newArticle.defaultValue().urlToImage
             ArticleImage(newImageUrl: imageUrl, newArticleUrl: newArticle.url)
             
             // Display article content
@@ -72,10 +72,10 @@ private struct ArticleContent: View {
     var newArticle: Article
     
     var body: some View {
-        Text(newArticle.title ?? "Unknown Title")
+        Text(newArticle.title ?? newArticle.defaultValue().title)
             .font(.headline)
             .fontWeight(.black)
-        Text(newArticle.description ?? "Unknown description")
+        Text(newArticle.description ?? newArticle.defaultValue().description)
             .font(.subheadline)
             .lineLimit(2)
         
@@ -83,7 +83,7 @@ private struct ArticleContent: View {
             .font(.footnote)
             .foregroundStyle(.pink)
         
-        Text(newArticle.author ?? "Unknown Author")
+        Text(newArticle.author ?? newArticle.defaultValue().author)
             .font(.footnote)
             .bold()
             .foregroundStyle(.gray)
