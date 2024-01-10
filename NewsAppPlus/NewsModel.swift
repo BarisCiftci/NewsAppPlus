@@ -13,6 +13,11 @@ struct NewsResponse: Codable {
     let articles: [Article]
 }
 
+struct Source: Codable {
+    let id: String?
+    let name: String
+}
+
 struct Article: Codable{
     let source: Source
     let author: String?
@@ -35,11 +40,6 @@ struct Article: Codable{
                 sourceName: "Unknown Source"
             )
         }
-}
-
-struct Source: Codable {
-    let id: String?
-    let name: String
 }
 
 struct DefaultValue {

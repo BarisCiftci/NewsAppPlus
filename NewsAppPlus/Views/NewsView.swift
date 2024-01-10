@@ -10,7 +10,7 @@ import SwiftUI
 struct NewsView: View {
     
     @StateObject private var newsViewModel = NewsViewModel()
-    private var navigationTitle: String = "News App"
+    private let NAVIGATION_TITLE: String = "News App"
     
     var body: some View {
         NavigationView {
@@ -30,7 +30,7 @@ struct NewsView: View {
             .refreshable {
                 await newsViewModel.fetchNews()
             }
-            .navigationTitle(navigationTitle)
+            .navigationTitle(NAVIGATION_TITLE)
             
         }
     }
