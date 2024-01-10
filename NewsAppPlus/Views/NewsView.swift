@@ -10,7 +10,6 @@ import SwiftUI
 struct NewsView: View {
     
     @StateObject private var newsViewModel = NewsViewModel()
-    private let NAVIGATION_TITLE: String = "News App"
     
     var body: some View {
         NavigationView {
@@ -30,7 +29,7 @@ struct NewsView: View {
             .refreshable {
                 await newsViewModel.fetchNews()
             }
-            .navigationTitle(NAVIGATION_TITLE)
+            .navigationTitle(Constant.NAVIGATION_TITLE)
             
         }
     }
@@ -64,7 +63,8 @@ private struct ArticleImage: View {
                     .modifier(ImageModifier())
             }
         placeholder: {
-            Image(systemName: "photo.artframe")
+            
+            Image(systemName: Constant.IMAGE_PLACEHOLDER)
                 .resizable()
                 .modifier(ImageModifier())
         }
