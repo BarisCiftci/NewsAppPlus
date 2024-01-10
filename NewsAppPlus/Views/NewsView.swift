@@ -36,7 +36,7 @@ struct NewsView: View {
 }
 
 private struct ArticleDetails: View {
-    var newArticle: Article
+    var newArticle: ArticleDto
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -74,7 +74,7 @@ private struct ArticleImage: View {
 }
 
 private struct ArticleContent: View {
-    var newArticle: Article
+    var newArticle: ArticleDto
     
     var body: some View {
         Text(newArticle.title ?? newArticle.defaultValue().title)

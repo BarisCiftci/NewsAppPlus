@@ -10,7 +10,7 @@ import Foundation
 struct NewsResponse: Codable {
     let status: String
     let totalResults: Int
-    let articles: [Article]
+    let articles: [ArticleDto]
 }
 
 struct Source: Codable {
@@ -18,7 +18,7 @@ struct Source: Codable {
     let name: String
 }
 
-struct Article: Codable{
+struct ArticleDto: Codable{
     let source: Source
     let author: String?
     let title: String?
@@ -28,8 +28,10 @@ struct Article: Codable{
     let publishedAt: String?
     let content: String?
     
-    func defaultValue() -> DefaultValue {
-            return DefaultValue(
+    
+    // FIXME: Introduce ArticleMapper class, func map(ArticleDto) return Article
+    func defaultValue() -> Article {
+            return Article(
                 author: "Unknown Author",
                 title: "Unknown Title",
                 description: "Unknown Description",
@@ -42,7 +44,7 @@ struct Article: Codable{
         }
 }
 
-struct DefaultValue {
+struct Article {
     let author: String
     let title: String
     let description: String

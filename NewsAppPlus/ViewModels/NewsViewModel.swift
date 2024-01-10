@@ -8,7 +8,7 @@
 import Foundation
 
 class NewsViewModel: ObservableObject {
-    @Published var articles: [Article] = []
+    @Published var articles: [ArticleDto] = []
     private let urlManager: UrlManager = UrlManager()
     
     func fetchNews() async {
