@@ -13,7 +13,8 @@ class NewsViewModel: ObservableObject {
     
     func fetchNews() async {
         do {
-            let (data, _) = try await URLSession.shared.data(from: urlManager.getUrl())
+            let urlSessionResult = try await URLSession.shared.data(from: urlManager.getUrl())
+            let data: Data = urlSessionResult.0
             let newsResponse = try JSONDecoder().decode(NewsResponse.self, from: data)
             DispatchQueue.main.async {
                 self.articles = newsResponse.articles
