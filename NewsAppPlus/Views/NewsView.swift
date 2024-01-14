@@ -41,8 +41,8 @@ private struct ArticleDetails: View {
     var body: some View {
         VStack(alignment: .leading) {
             // Display article image
-            let imageUrl = newArticle.urlToImage ?? newArticle.defaultValue().urlToImage
-            ArticleImage(newImageUrl: imageUrl, newArticleUrl: newArticle.url)
+            let imageUrl = newArticle.map().urlToImage
+            ArticleImage(newImageUrl: imageUrl, newArticleUrl: newArticle.map().url)
             
             
             // Display article content
@@ -77,10 +77,10 @@ private struct ArticleContent: View {
     var newArticle: ArticleDto
     
     var body: some View {
-        Text(newArticle.title ?? newArticle.defaultValue().title)
+        Text(newArticle.map().title)
             .font(.headline)
             .fontWeight(.black)
-        Text(newArticle.description ?? newArticle.defaultValue().description)
+        Text(newArticle.map().description)
             .font(.subheadline)
             .lineLimit(2)
         
@@ -88,7 +88,7 @@ private struct ArticleContent: View {
             .font(.footnote)
             .foregroundStyle(.pink)
         
-        Text(newArticle.author ?? newArticle.defaultValue().author)
+        Text(newArticle.map().author)
             .font(.footnote)
             .bold()
             .foregroundStyle(.gray)

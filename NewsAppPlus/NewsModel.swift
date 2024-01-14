@@ -23,28 +23,29 @@ struct ArticleDto: Codable{
     let author: String?
     let title: String?
     let description: String?
-    let url: String
+    let url: String?
     let urlToImage: String?
     let publishedAt: String?
     let content: String?
     
     
     // FIXME: Introduce ArticleMapper class, func map(ArticleDto) return Article
-    func defaultValue() -> Article {
-            return Article(
-                author: "Unknown Author",
-                title: "Unknown Title",
-                description: "Unknown Description",
-                url: "https://media.discordapp.net/attachments/989268324884049960/1061765655889719326/6AC54581-051B-4930-B145-B38B37DAA3DF_1_105_c.jpeg",
-                urlToImage: "https://media.discordapp.net/attachments/989268324884049960/1061765655889719326/6AC54581-051B-4930-B145-B38B37DAA3DF_1_105_c.jpeg",
-                publishedAt: "Unknown Date",
-                content: "Unknown Content",
-                sourceName: "Unknown Source"
-            )
-        }
+    func map() -> Article {
+        return Article(
+            source: source,
+            author: author ?? Constant.UNKNOWN_AUTHOR,
+            title: title ?? Constant.UNKNOWN_TITLE,
+            description: description ?? Constant.UNKNOWN_DESCRIPTION,
+            url: url ?? Constant.UNKNOWN_URL,
+            urlToImage: urlToImage ?? Constant.UNKNOWN_URLTOIMAGE,
+            publishedAt: publishedAt ?? Constant.UNKNOWN_PUPLISHAT,
+            content: content ?? Constant.UNKNOWN_CONTENT
+        )
+    }
 }
 
 struct Article {
+    let source: Source
     let author: String
     let title: String
     let description: String
@@ -52,5 +53,4 @@ struct Article {
     let urlToImage: String
     let publishedAt: String
     let content: String
-    let sourceName: String
 }
