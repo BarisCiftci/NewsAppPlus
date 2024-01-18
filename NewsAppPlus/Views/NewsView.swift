@@ -10,8 +10,6 @@ import SwiftUI
 struct NewsView: View {
     
     @StateObject private var newsViewModel = NewsViewModel()
-    @State var microsoftIsClicked = false
-    @State var appleClicked = false
     
     var body: some View {
         VStack{

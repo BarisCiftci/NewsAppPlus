@@ -13,8 +13,4 @@ enum Category: CaseIterable{
     func name() -> String {
         return String(describing: self).capitalized
     }
-    
-    func categories() -> [Category] {
-        return Category.allCases
-    }
 }
