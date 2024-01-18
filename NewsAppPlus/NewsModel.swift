@@ -28,7 +28,6 @@ struct ArticleDto: Codable{
     let publishedAt: String?
     let content: String?
     
-    
     // FIXME: Introduce ArticleMapper class, func map(ArticleDto) return Article
     func map() -> Article {
         return Article(

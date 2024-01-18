@@ -9,7 +9,6 @@ import SwiftUI
 import WebKit
 
 struct NewsWebView: UIViewRepresentable {
-    
     var urlString: String
     
     func makeUIView(context: Context) -> WKWebView {
