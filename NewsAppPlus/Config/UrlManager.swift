@@ -13,9 +13,9 @@ class UrlManager {
     private let key = "e7c00742a71b450b9403d52090fc70ce"
     
     func getUrlForCategory(category: Category) -> URL {
-        let categoryUrl = String(describing: category).lowercased()
-        let generatedUrl = String("=\(categoryUrl)&from=2023-12-24&to=2023-12-31&sortBy=popularity&apiKey=")
-        return URL(string: baseUrl+topHeadlinesUrl+generatedUrl+key)!
+        let categoryName = category.name().lowercased()
+        let categoryUrl = String("=\(categoryName)&from=2023-12-24&to=2023-12-31&sortBy=popularity&apiKey=")
+        let generatedUrl = baseUrl+topHeadlinesUrl+categoryUrl+key
+        return URL(string: generatedUrl)!
     }
-   
 }
