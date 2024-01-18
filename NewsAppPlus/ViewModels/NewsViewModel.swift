@@ -24,9 +24,9 @@ class NewsViewModel: ObservableObject {
         }
     }
     
-    func fetchNewsForCategory() async {
+    func fetchNewsForCategory(category: Category) async {
         do {
-            let urlSessionResult = try await URLSession.shared.data(from: urlManager.getUrlForCategory(category: Category.TESLA))
+            let urlSessionResult = try await URLSession.shared.data(from: urlManager.getUrlForCategory(category: category))
             let data: Data = urlSessionResult.0
             let newsResponse = try JSONDecoder().decode(NewsResponse.self, from: data)
             DispatchQueue.main.async {
@@ -36,43 +36,5 @@ class NewsViewModel: ObservableObject {
             print("Error fetching or decoding data: \(error)")
         }
     }
-    
-    func fetchNewsTesla() async {
-        do {
-            let urlSessionResult = try await URLSession.shared.data(from: urlManager.getUrlForCategory(category: Category.TESLA))
-            let data: Data = urlSessionResult.0
-            let newsResponse = try JSONDecoder().decode(NewsResponse.self, from: data)
-            DispatchQueue.main.async {
-                self.articles = newsResponse.articles
-            }
-        } catch {
-            print("Error fetching or decoding data: \(error)")
-        }
-    }
-    
-    func fetchNewsMicrosoft() async {
-        do {
-            let urlSessionResult = try await URLSession.shared.data(from: urlManager.getUrlForCategory(category: Category.MICROSOFT))
-            let data: Data = urlSessionResult.0
-            let newsResponse = try JSONDecoder().decode(NewsResponse.self, from: data)
-            DispatchQueue.main.async {
-                self.articles = newsResponse.articles
-            }
-        } catch {
-            print("Error fetching or decoding data: \(error)")
-        }
-    }
-    
-    func fetchNewsApple() async {
-        do {
-            let urlSessionResult = try await URLSession.shared.data(from: urlManager.getUrlForCategory(category: Category.APPLE))
-            let data: Data = urlSessionResult.0
-            let newsResponse = try JSONDecoder().decode(NewsResponse.self, from: data)
-            DispatchQueue.main.async {
-                self.articles = newsResponse.articles
-            }
-        } catch {
-            print("Error fetching or decoding data: \(error)")
-        }
-    }
+
 }

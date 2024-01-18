@@ -16,15 +16,15 @@ struct NewsView: View {
     
     var body: some View {
         VStack{
-            Text("NewsApp")
+            Text(Constant.NAVIGATION_TITLE)
+            
             HStack {
                 Button(
                     action: {
                         Task {
-                            await teslaIsClicked ? newsViewModel.fetchNewsTesla() : newsViewModel.fetchNewsAll()
+                            await teslaIsClicked ? newsViewModel.fetchNewsForCategory(category: .TESLA) : newsViewModel.fetchNewsAll()
                         }
                         teslaIsClicked.toggle()
-                        
                     },
                     
                     label: {
@@ -51,7 +51,7 @@ struct NewsView: View {
                 Button(
                     action: {
                         Task {
-                            await microsoftIsClicked ? newsViewModel.fetchNewsMicrosoft() : newsViewModel.fetchNewsAll()
+                            await microsoftIsClicked ? newsViewModel.fetchNewsForCategory(category: .MICROSOFT) : newsViewModel.fetchNewsAll()
                         }
                         microsoftIsClicked.toggle()
                         
@@ -80,7 +80,7 @@ struct NewsView: View {
                 Button(
                     action: {
                         Task {
-                            await appleClicked ? newsViewModel.fetchNewsApple() : newsViewModel.fetchNewsAll()
+                            await appleClicked ? newsViewModel.fetchNewsForCategory(category: .APPLE) : newsViewModel.fetchNewsAll()
                             
                         }
                         appleClicked.toggle()
