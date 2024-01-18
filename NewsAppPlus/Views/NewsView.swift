@@ -15,7 +15,8 @@ struct NewsView: View {
     @State var appleClicked = false
     
     var body: some View {
-        VStack {
+        VStack{
+            Text("NewsApp")
             HStack {
                 Button(
                     action: {
@@ -36,12 +37,12 @@ struct NewsView: View {
                                 }
                                 teslaIsClicked.toggle()
                             }, label: {
-                                Image(systemName: teslaIsClicked ? "xmark.circle.fill" : "")
+                                Image(systemName: teslaIsClicked ? "xmark.circle.fill" : "plus.circle.fill")
                             })
                         }
                         .foregroundStyle(.white)
                         .padding(8)
-                        .padding(.horizontal, 8)
+                        .padding(.leading, 8)
                         .background(teslaIsClicked ? Color.pink : Color.gray)
                         .cornerRadius(24)
                         
@@ -65,12 +66,12 @@ struct NewsView: View {
                                 }
                                 microsoftIsClicked.toggle()
                             }, label: {
-                                Image(systemName: microsoftIsClicked ? "xmark.circle.fill" : "")
+                                Image(systemName: microsoftIsClicked ? "xmark.circle.fill" : "plus.circle.fill")
                             })
                         }
                         .foregroundStyle(.white)
                         .padding(8)
-                        .padding(.horizontal, 8)
+                        .padding(.leading, 8)
                         .background(microsoftIsClicked ? Color.pink : Color.gray)
                         .cornerRadius(24)
                         
@@ -96,12 +97,12 @@ struct NewsView: View {
                                 }
                                 appleClicked.toggle()
                             }, label: {
-                                Image(systemName: appleClicked ? "xmark.circle.fill" : "")
+                                Image(systemName: appleClicked ? "xmark.circle.fill" : "plus.circle.fill")
                             })
                         }
                         .foregroundStyle(.white)
                         .padding(8)
-                        .padding(.horizontal, 8)
+                        .padding(.leading, 8)
                         .background(appleClicked ? Color.pink : Color.gray)
                         .cornerRadius(24)
                         
@@ -124,7 +125,6 @@ struct NewsView: View {
                 .refreshable {
                     await newsViewModel.fetchNewsAll()
                 }
-                .navigationTitle(Constant.NAVIGATION_TITLE)
                 
             }
         }
@@ -199,8 +199,6 @@ struct ImageModifier: ViewModifier {
             .cornerRadius(12)
     }
 }
-
-
 
 #Preview {
     NewsView()
