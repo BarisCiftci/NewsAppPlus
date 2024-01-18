@@ -19,11 +19,9 @@ struct NewsView: View {
             
             ScrollView(.horizontal) {
                 HStack {
-                    CategoryChip(category: Category.APPLE, newsViewModel: newsViewModel)
-                    CategoryChip(category: Category.TESLA, newsViewModel: newsViewModel)
-                    CategoryChip(category: Category.PEACE, newsViewModel: newsViewModel)
-                    CategoryChip(category: Category.SAMSUNG, newsViewModel: newsViewModel)
-                    CategoryChip(category: Category.MICROSOFT, newsViewModel: newsViewModel)
+                    ForEach(Category.allCases, id: \.self) { category in
+                        CategoryChip(category: category, newsViewModel: newsViewModel)
+                    }
                 }
             }
             

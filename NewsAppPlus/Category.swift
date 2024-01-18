@@ -7,10 +7,14 @@
 
 import Foundation
 
-enum Category {
+enum Category: CaseIterable{
     case ALL, APPLE, TESLA, MICROSOFT, SAMSUNG, PEACE
     
     func name() -> String {
         return String(describing: self).capitalized
+    }
+    
+    func categories() -> [Category] {
+        return Category.allCases
     }
 }
