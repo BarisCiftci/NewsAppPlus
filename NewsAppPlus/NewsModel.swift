@@ -13,7 +13,7 @@ struct NewsResponse: Codable {
     let articles: [ArticleDto]
 }
 
-private struct Source: Codable {
+struct Source: Codable {
     let id: String?
     let name: String
 }
