@@ -22,7 +22,7 @@ struct NewsView: View {
                 Button(
                     action: {
                         Task {
-                            await teslaIsClicked ? newsViewModel.fetchNewsForCategory(category: .TESLA) : newsViewModel.fetchNewsAll()
+                            await teslaIsClicked ? newsViewModel.fetchNewsForCategory(category: .TESLA) : newsViewModel.fetchNewsForCategory(category: .ALL)
                         }
                         teslaIsClicked.toggle()
                     },
@@ -33,7 +33,7 @@ struct NewsView: View {
                             
                             Button(action: {
                                 Task {
-                                    await newsViewModel.fetchNewsAll()
+                                    await newsViewModel.fetchNewsForCategory(category: Category.ALL)
                                 }
                                 teslaIsClicked.toggle()
                             }, label: {
@@ -51,7 +51,7 @@ struct NewsView: View {
                 Button(
                     action: {
                         Task {
-                            await microsoftIsClicked ? newsViewModel.fetchNewsForCategory(category: .MICROSOFT) : newsViewModel.fetchNewsAll()
+                            await microsoftIsClicked ? newsViewModel.fetchNewsForCategory(category: .MICROSOFT) : newsViewModel.fetchNewsForCategory(category: .ALL )
                         }
                         microsoftIsClicked.toggle()
                         
@@ -62,7 +62,7 @@ struct NewsView: View {
                             
                             Button(action: {
                                 Task {
-                                    await newsViewModel.fetchNewsAll()
+                                    await newsViewModel.fetchNewsForCategory(category: Category.ALL)
                                 }
                                 microsoftIsClicked.toggle()
                             }, label: {
@@ -80,7 +80,7 @@ struct NewsView: View {
                 Button(
                     action: {
                         Task {
-                            await appleClicked ? newsViewModel.fetchNewsForCategory(category: .APPLE) : newsViewModel.fetchNewsAll()
+                            await appleClicked ? newsViewModel.fetchNewsForCategory(category: .APPLE) : newsViewModel.fetchNewsForCategory(category: .ALL)
                             
                         }
                         appleClicked.toggle()
@@ -93,7 +93,7 @@ struct NewsView: View {
                             
                             Button(action: {
                                 Task {
-                                    await newsViewModel.fetchNewsAll()
+                                    await newsViewModel.fetchNewsForCategory(category: Category.ALL)
                                 }
                                 appleClicked.toggle()
                             }, label: {
@@ -120,10 +120,10 @@ struct NewsView: View {
                 
                 .listStyle(.plain)
                 .task {
-                    await newsViewModel.fetchNewsAll()
+                    await newsViewModel.fetchNewsForCategory(category: Category.ALL)
                 }
                 .refreshable {
-                    await newsViewModel.fetchNewsAll()
+                    await newsViewModel.fetchNewsForCategory(category:  Category.ALL)
                 }
                 
             }

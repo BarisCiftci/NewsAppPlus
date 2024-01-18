@@ -8,5 +8,5 @@
 import Foundation
 
 enum Category {
-    case APPLE, TESLA, MICROSOFT
+    case APPLE, TESLA, MICROSOFT, ALL
 }
