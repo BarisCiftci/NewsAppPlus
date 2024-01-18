@@ -17,10 +17,13 @@ struct NewsView: View {
         VStack{
             Text(Constant.NAVIGATION_TITLE)
             
-            HStack {
-                CategoryChip(category: Category.TESLA, newsViewModel: newsViewModel)
-                CategoryChip(category: Category.MICROSOFT, newsViewModel: newsViewModel)
-                CategoryChip(category: Category.APPLE, newsViewModel: newsViewModel)
+            ScrollView(.horizontal) {
+                HStack {
+                    CategoryChip(category: Category.TESLA, newsViewModel: newsViewModel)
+                    CategoryChip(category: Category.MICROSOFT, newsViewModel: newsViewModel)
+                    CategoryChip(category: Category.APPLE, newsViewModel: newsViewModel)
+                    CategoryChip(category: Category.SAMSUNG, newsViewModel: newsViewModel)
+                }
             }
             
             NavigationView {
