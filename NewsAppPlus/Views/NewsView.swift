@@ -10,106 +10,19 @@ import SwiftUI
 struct NewsView: View {
     
     @StateObject private var newsViewModel = NewsViewModel()
-    @State var teslaIsClicked = false
     @State var microsoftIsClicked = false
     @State var appleClicked = false
     
     var body: some View {
-        
-        
-        VStack {
+        VStack{
+            Text(Constant.NAVIGATION_TITLE)
             
             HStack {
-                Button(
-                    action: {
-                        Task {
-                            await teslaIsClicked ? newsViewModel.fetchNewsTesla() : newsViewModel.fetchNewsAll()
-                        }
-                        teslaIsClicked.toggle()
-                        
-                    },
-                    
-                    label: {
-                        HStack {
-                            Text("Tesla")
-                            
-                            Button(action: {
-                                Task {
-                                    await newsViewModel.fetchNewsAll()
-                                }
-                                teslaIsClicked.toggle()
-                            }, label: {
-                                Image(systemName: teslaIsClicked ? "xmark.circle.fill" : "")
-                            })
-                        }
-                        .foregroundStyle(.white)
-                        .padding(8)
-                        .padding(.horizontal, 8)
-                        .background(teslaIsClicked ? Color.pink : Color.gray)
-                        .cornerRadius(24)
-                        
-                    })
-                
-                Button(
-                    action: {
-                        Task {
-                            await microsoftIsClicked ? newsViewModel.fetchNewsMicrosoft() : newsViewModel.fetchNewsAll()
-                        }
-                        microsoftIsClicked.toggle()
-                        
-                    },
-                    label: {
-                        HStack {
-                            Text("Microsoft")
-                            
-                            Button(action: {
-                                Task {
-                                    await newsViewModel.fetchNewsAll()
-                                }
-                                microsoftIsClicked.toggle()
-                            }, label: {
-                                Image(systemName: microsoftIsClicked ? "xmark.circle.fill" : "")
-                            })
-                        }
-                        .foregroundStyle(.white)
-                        .padding(8)
-                        .padding(.horizontal, 8)
-                        .background(microsoftIsClicked ? Color.pink : Color.gray)
-                        .cornerRadius(24)
-                        
-                    })
-                
-                Button(
-                    action: {
-                        Task {
-                            await appleClicked ? newsViewModel.fetchNewsApple() : newsViewModel.fetchNewsAll()
-                            
-                        }
-                        appleClicked.toggle()
-                        
-                    },
-                    
-                    label: {
-                        HStack {
-                            Text("Apple")
-                            
-                            Button(action: {
-                                Task {
-                                    await newsViewModel.fetchNewsAll()
-                                }
-                                appleClicked.toggle()
-                            }, label: {
-                                Image(systemName: appleClicked ? "xmark.circle.fill" : "")
-                            })
-                        }
-                        .foregroundStyle(.white)
-                        .padding(8)
-                        .padding(.horizontal, 8)
-                        .background(appleClicked ? Color.pink : Color.gray)
-                        .cornerRadius(24)
-                        
-                    })
+                CategoryChip(category: Category.TESLA, newsViewModel: newsViewModel)
+                CategoryChip(category: Category.MICROSOFT, newsViewModel: newsViewModel)
+                CategoryChip(category: Category.APPLE, newsViewModel: newsViewModel)
             }
+            
             NavigationView {
                 
                 // Display list of articles displayArticles
@@ -119,20 +32,53 @@ struct NewsView: View {
                     ArticleDetails(newArticle: article)
                     
                 }
-                
                 .listStyle(.plain)
                 .task {
-                    await newsViewModel.fetchNewsAll()
+                    newsViewModel.fetchNewsForCategory(category: Category.ALL)
                 }
                 .refreshable {
-                    await newsViewModel.fetchNewsAll()
+                    newsViewModel.fetchNewsForCategory(category:  Category.ALL)
                 }
-                .navigationTitle(Constant.NAVIGATION_TITLE)
                 
             }
         }
     }
 }
+
+private struct CategoryChip: View {
+    let category: Category
+    @State private var isClicked = false
+    @ObservedObject var newsViewModel: NewsViewModel
+    
+    var body: some View {
+        Button(
+            action: {
+                isClicked.toggle()
+                isClicked ? newsViewModel.fetchNewsForCategory(category: category) : newsViewModel.fetchNewsForCategory(category: Category.ALL)
+            },
+            label: {
+                HStack {
+                    Text(category.name())
+                    
+                    Button(
+                        action: {
+                            isClicked.toggle()
+                            isClicked ? newsViewModel.fetchNewsForCategory(category: category) : newsViewModel.fetchNewsForCategory(category: Category.ALL)
+                        },
+                        label: {
+                            Image(systemName: isClicked ? "xmark.circle.fill" : "plus.circle.fill")
+                        })
+                }
+                .foregroundStyle(.white)
+                .padding(8)
+                .padding(.leading, 8)
+                .background(isClicked ? Color.pink : Color.gray)
+                .cornerRadius(24)
+            }
+        )
+    }
+}
+
 
 private struct ArticleDetails: View {
     var newArticle: ArticleDto
@@ -203,37 +149,7 @@ struct ImageModifier: ViewModifier {
     }
 }
 
-
-
 #Preview {
     NewsView()
 }
 
-struct TeslaButton: View {
-    @State var buttonClicked: NewsViewModel
-    @State var appleIsClicked = false
-    var body: some View {
-        Button(action: {
-            Task {
-                await buttonClicked.fetchNewsTesla()
-                
-            }
-            
-        }, label: {
-            HStack {
-                Text("Tesla")
-                Button(action: {
-                    
-                }, label: {
-                    Image(systemName: appleIsClicked ? "xmark.circle.fill" : "")
-                })
-            }
-            .foregroundStyle(.white)
-            .padding(8)
-            .padding(.horizontal, 8)
-            .background(appleIsClicked ? Color.pink : Color.gray)
-            .cornerRadius(24)
-            
-        })
-    }
-}
