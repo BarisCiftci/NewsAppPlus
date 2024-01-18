@@ -13,7 +13,7 @@ struct NewsResponse: Codable {
     let articles: [ArticleDto]
 }
 
-struct Source: Codable {
+private struct Source: Codable {
     let id: String?
     let name: String
 }
@@ -27,7 +27,6 @@ struct ArticleDto: Codable{
     let urlToImage: String?
     let publishedAt: String?
     let content: String?
-    
     
     // FIXME: Introduce ArticleMapper class, func map(ArticleDto) return Article
     func map() -> Article {
