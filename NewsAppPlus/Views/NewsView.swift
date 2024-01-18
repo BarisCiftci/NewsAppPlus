@@ -15,10 +15,7 @@ struct NewsView: View {
     @State var appleClicked = false
     
     var body: some View {
-        
-        
         VStack {
-            
             HStack {
                 Button(
                     action: {
@@ -209,31 +206,3 @@ struct ImageModifier: ViewModifier {
     NewsView()
 }
 
-struct TeslaButton: View {
-    @State var buttonClicked: NewsViewModel
-    @State var appleIsClicked = false
-    var body: some View {
-        Button(action: {
-            Task {
-                await buttonClicked.fetchNewsTesla()
-                
-            }
-            
-        }, label: {
-            HStack {
-                Text("Tesla")
-                Button(action: {
-                    
-                }, label: {
-                    Image(systemName: appleIsClicked ? "xmark.circle.fill" : "")
-                })
-            }
-            .foregroundStyle(.white)
-            .padding(8)
-            .padding(.horizontal, 8)
-            .background(appleIsClicked ? Color.pink : Color.gray)
-            .cornerRadius(24)
-            
-        })
-    }
-}
