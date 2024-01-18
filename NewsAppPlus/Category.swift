@@ -9,4 +9,8 @@ import Foundation
 
 enum Category {
     case APPLE, TESLA, MICROSOFT, ALL
+    
+    func name() -> String {
+        return String(describing: self).capitalized
+    }
 }

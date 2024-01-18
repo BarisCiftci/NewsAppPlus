@@ -11,17 +11,18 @@ class NewsViewModel: ObservableObject {
     @Published var articles: [ArticleDto] = []
     private let urlManager: UrlManager = UrlManager()
 
-    func fetchNewsForCategory(category: Category) async {
-        do {
-            let urlSessionResult = try await URLSession.shared.data(from: urlManager.getUrlForCategory(category: category))
-            let data: Data = urlSessionResult.0
-            let newsResponse = try JSONDecoder().decode(NewsResponse.self, from: data)
-            DispatchQueue.main.async {
-                self.articles = newsResponse.articles
+    func fetchNewsForCategory(category: Category) {
+        async {
+            do {
+                let urlSessionResult = try await URLSession.shared.data(from: urlManager.getUrlForCategory(category: category))
+                let data: Data = urlSessionResult.0
+                let newsResponse = try JSONDecoder().decode(NewsResponse.self, from: data)
+                DispatchQueue.main.async {
+                    self.articles = newsResponse.articles
+                }
+            } catch {
+                print("Error fetching or decoding data: \(error)")
             }
-        } catch {
-            print("Error fetching or decoding data: \(error)")
         }
     }
-
 }
