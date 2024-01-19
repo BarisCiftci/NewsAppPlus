@@ -39,7 +39,6 @@ struct NewsView: View {
                 .refreshable {
                     newsViewModel.fetchNewsForCategory(category:  Category.ALL)
                 }
-                
             }
         }
     }
@@ -79,7 +78,6 @@ private struct CategoryChip: View {
     }
 }
 
-
 private struct ArticleDetails: View {
     var newArticle: ArticleDto
     
@@ -88,8 +86,7 @@ private struct ArticleDetails: View {
             // Display article image
             let imageUrl = newArticle.map().urlToImage
             ArticleImage(newImageUrl: imageUrl, newArticleUrl: newArticle.map().url)
-            
-            
+          
             // Display article content
             ArticleContent(newArticle: newArticle)
         }
@@ -102,7 +99,7 @@ private struct ArticleImage: View {
     
     var body: some View {
         ZStack {
-            NavigationLink("", destination: NewsWebView(urlString: newArticleUrl))
+            NavigationLink(destination: NewsWebView(urlString: newArticleUrl)) { EmptyView() }
             AsyncImage(url: URL(string: newImageUrl)) { image in
                 image.resizable()
                     .modifier(ImageModifier())
