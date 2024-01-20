@@ -18,5 +18,7 @@ struct Constant {
     static let UNKNOWN_URLTOIMAGE: String = "https://media.discordapp.net/attachments/989268324884049960/1061765655889719326/6AC54581-051B-4930-B145-B38B37DAA3DF_1_105_c.jpeg"
     static let UNKNOWN_PUPLISHAT: String = "Unknown Date"
     static let UNKNOWN_CONTENT: String = "Unknown Content"
+    static let CLOSE_ICON: String = "xmark.circle.fill"
+    static let PLUS_ICON: String = "plus.circle.fill"
 }
 

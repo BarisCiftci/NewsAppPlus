@@ -65,7 +65,7 @@ private struct CategoryChip: View {
                             isClicked ? newsViewModel.fetchNewsForCategory(category: category) : newsViewModel.fetchNewsForCategory(category: Category.ALL)
                         },
                         label: {
-                            Image(systemName: isClicked ? "xmark.circle.fill" : "plus.circle.fill")
+                            Image(systemName: isClicked ? Constant.CLOSE_ICON : Constant.PLUS_ICON)
                         })
                 }
                 .foregroundStyle(.white)
