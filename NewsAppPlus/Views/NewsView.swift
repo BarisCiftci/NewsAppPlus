@@ -10,6 +10,16 @@ import SwiftUI
 struct NewsView: View {
     
     @StateObject private var newsViewModel = NewsViewModel()
+    @State private var searchSource: String = String()
+    var filteredArticles: [ArticleDto] {
+           if searchSource.isEmpty {
+               return newsViewModel.articles
+           } else {
+               return newsViewModel.articles.filter { article in
+                   article.source.name.localizedCaseInsensitiveContains(searchSource)
+               }
+           }
+       }
     
     var body: some View {
         VStack{
@@ -21,12 +31,16 @@ struct NewsView: View {
                         CategoryChip(category: category, newsViewModel: newsViewModel)
                     }
                 }
+                .frame(width: UIScreen.main.bounds.width * 2/1)
             }
+            
+            SearchBar(searchText: $searchSource)
             
             NavigationView {
                 
+                
                 // Display list of articles displayArticles
-                List(newsViewModel.articles, id: \.source.id) { article in
+                List(filteredArticles, id: \.source.id) { article in
                     
                     // Display article details
                     ArticleDetails(newArticle: article)
@@ -145,6 +159,31 @@ struct ImageModifier: ViewModifier {
             .cornerRadius(12)
     }
 }
+
+struct SearchBar: View {
+    @Binding var searchText: String
+
+    var body: some View {
+        HStack {
+            TextField("Search Source", text: $searchText)
+                .padding(8)
+                .background(Color(.systemGray6))
+                .cornerRadius(8)
+                .padding(.horizontal, 8)
+
+            if !searchText.isEmpty {
+                Button(action: {
+                    searchText = ""
+                }) {
+                    Image(systemName: "xmark.circle.fill")
+                        .foregroundColor(Color(.systemGray))
+                        .padding(8)
+                }
+            }
+        }
+    }
+}
+
 
 #Preview {
     NewsView()
