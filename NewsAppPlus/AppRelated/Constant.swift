@@ -20,5 +20,6 @@ struct Constant {
     static let UNKNOWN_CONTENT: String = "Unknown Content"
     static let CLOSE_ICON: String = "xmark.circle.fill"
     static let PLUS_ICON: String = "plus.circle.fill"
+    static let SEARCH_SOURCE: String = "Search Source"
 }
 

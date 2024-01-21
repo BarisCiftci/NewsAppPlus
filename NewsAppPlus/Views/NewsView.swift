@@ -10,7 +10,7 @@ import SwiftUI
 struct NewsView: View {
     
     @StateObject private var newsViewModel = NewsViewModel()
-    @State private var searchSource: String = String()
+    @State private var searchSource = String()
     var filteredArticles: [ArticleDto] {
            if searchSource.isEmpty {
                return newsViewModel.articles
@@ -25,7 +25,7 @@ struct NewsView: View {
         VStack{
             Text(Constant.NAVIGATION_TITLE)
             
-            ScrollView(.horizontal) {
+            ScrollView(.horizontal, showsIndicators: false) {
                 HStack {
                     ForEach(Category.allCases, id: \.self) { category in
                         CategoryChip(category: category, newsViewModel: newsViewModel)
@@ -34,7 +34,7 @@ struct NewsView: View {
                 .frame(width: UIScreen.main.bounds.width * 2/1)
             }
             
-            SearchBar(searchText: $searchSource)
+            SearchBar(searchSource: $searchSource)
             
             NavigationView {
                 
@@ -161,21 +161,21 @@ struct ImageModifier: ViewModifier {
 }
 
 struct SearchBar: View {
-    @Binding var searchText: String
+    @Binding var searchSource: String
 
     var body: some View {
         HStack {
-            TextField("Search Source", text: $searchText)
+            TextField(Constant.SEARCH_SOURCE, text: $searchSource)
                 .padding(8)
                 .background(Color(.systemGray6))
                 .cornerRadius(8)
                 .padding(.horizontal, 8)
 
-            if !searchText.isEmpty {
+            if !searchSource.isEmpty {
                 Button(action: {
-                    searchText = ""
+                searchSource = String()
                 }) {
-                    Image(systemName: "xmark.circle.fill")
+                    Image(systemName: Constant.CLOSE_ICON)
                         .foregroundColor(Color(.systemGray))
                         .padding(8)
                 }
