@@ -31,7 +31,7 @@ struct NewsView: View {
                         CategoryChip(category: category, newsViewModel: newsViewModel)
                     }
                 }
-                .frame(width: UIScreen.main.bounds.width * 2/1)
+                .padding(8)
             }
             
             SearchBar(searchSource: $searchSource)
@@ -48,10 +48,10 @@ struct NewsView: View {
                 }
                 .listStyle(.plain)
                 .task {
-                    newsViewModel.fetchNewsForCategory(category: Category.ALL)
+                    newsViewModel.fetchNewsForCategory(category: Category.BUSINESS)
                 }
                 .refreshable {
-                    newsViewModel.fetchNewsForCategory(category:  Category.ALL)
+                    newsViewModel.fetchNewsForCategory(category:  Category.BUSINESS)
                 }
             }
         }
@@ -67,7 +67,7 @@ private struct CategoryChip: View {
         Button(
             action: {
                 isClicked.toggle()
-                isClicked ? newsViewModel.fetchNewsForCategory(category: category) : newsViewModel.fetchNewsForCategory(category: Category.ALL)
+                isClicked ? newsViewModel.fetchNewsForCategory(category: category) : newsViewModel.fetchNewsForCategory(category: Category.BUSINESS)
             },
             label: {
                 HStack {
@@ -76,7 +76,7 @@ private struct CategoryChip: View {
                     Button(
                         action: {
                             isClicked.toggle()
-                            isClicked ? newsViewModel.fetchNewsForCategory(category: category) : newsViewModel.fetchNewsForCategory(category: Category.ALL)
+                            isClicked ? newsViewModel.fetchNewsForCategory(category: category) : newsViewModel.fetchNewsForCategory(category: Category.BUSINESS)
                         },
                         label: {
                             Image(systemName: isClicked ? Constant.CLOSE_ICON : Constant.PLUS_ICON)
