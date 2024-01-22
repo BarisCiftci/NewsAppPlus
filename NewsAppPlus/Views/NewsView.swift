@@ -10,37 +10,13 @@ import SwiftUI
 struct NewsView: View {
     
     @StateObject private var newsViewModel = NewsViewModel()
-    @State private var searchSource = String()
-    var filteredArticles: [ArticleDto] {
-           if searchSource.isEmpty {
-               return newsViewModel.articles
-           } else {
-               return newsViewModel.articles.filter { article in
-                   article.source.name.localizedCaseInsensitiveContains(searchSource)
-               }
-           }
-       }
-    
+    let selectedSource: String
     var body: some View {
         VStack{
-            Text(Constant.NAVIGATION_TITLE)
-            
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack {
-                    ForEach(Category.allCases, id: \.self) { category in
-                        CategoryChip(category: category, newsViewModel: newsViewModel)
-                    }
-                }
-                .padding(8)
-            }
-            
-            SearchBar(searchSource: $searchSource)
-            
             NavigationView {
                 
-                
                 // Display list of articles displayArticles
-                List(filteredArticles, id: \.source.id) { article in
+                List(newsViewModel.articles.filter { $0.source.name == selectedSource }, id: \.url) { article in
                     
                     // Display article details
                     ArticleDetails(newArticle: article)
@@ -52,7 +28,7 @@ struct NewsView: View {
                 }
                 .refreshable {
                     newsViewModel.fetchNewsForCategory(category:  Category.BUSINESS)
-                }
+                }.navigationTitle(selectedSource)
             }
         }
     }
@@ -160,32 +136,8 @@ struct ImageModifier: ViewModifier {
     }
 }
 
-struct SearchBar: View {
-    @Binding var searchSource: String
-
-    var body: some View {
-        HStack {
-            TextField(Constant.SEARCH_SOURCE, text: $searchSource)
-                .padding(8)
-                .background(Color(.systemGray6))
-                .cornerRadius(8)
-                .padding(.horizontal, 8)
-
-            if !searchSource.isEmpty {
-                Button(action: {
-                searchSource = String()
-                }) {
-                    Image(systemName: Constant.CLOSE_ICON)
-                        .foregroundColor(Color(.systemGray))
-                        .padding(8)
-                }
-            }
-        }
-    }
-}
-
 
 #Preview {
-    NewsView()
+    NewsView(selectedSource: Constant.SOURCES_TITLE)
 }
 

@@ -8,7 +8,7 @@
 import Foundation
 
 struct Constant {
-    static let NAVIGATION_TITLE: String = "News App"
+    static let APP_NAME: String = "News App"
     static let IMAGE_PLACEHOLDER: String = "photo.artframe"
     
     static let UNKNOWN_AUTHOR: String = "Unknown Author"
@@ -20,6 +20,6 @@ struct Constant {
     static let UNKNOWN_CONTENT: String = "Unknown Content"
     static let CLOSE_ICON: String = "xmark.circle.fill"
     static let PLUS_ICON: String = "plus.circle.fill"
-    static let SEARCH_SOURCE: String = "Search Source"
+    static let SOURCES_TITLE: String = "Sources"
 }
 

@@ -10,10 +10,10 @@ import SwiftUI
 struct SourceView: View {
     
     @StateObject private var newsViewModel = NewsViewModel()
-    
+    @State private var selectedSource: String?
     var body: some View {
         VStack{
-            Text(Constant.NAVIGATION_TITLE)
+            Text(Constant.APP_NAME)
             
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack {
@@ -21,19 +21,17 @@ struct SourceView: View {
                         CategoryChip(category: category, newsViewModel: newsViewModel)
                     }
                 }
-                .padding(8)
+                .padding(.horizontal, 8)
             }
-            
-            
             NavigationView {
-                
-                
                 // Display list of articles displayArticles
-                List(newsViewModel.articles, id: \.source.id) { article in
-                    
-                    // Display article details
-                    ArticleDetails(newArticle: article)
-                    
+                List(newsViewModel.articles, id: \.source.name) { article in
+                    ZStack {
+                        NavigationLink(destination: NewsView(selectedSource: article.source.name))
+                        { EmptyView() }
+                        // Display article details
+                        ArticleDetails(newArticle: article)
+                    }
                 }
                 .listStyle(.plain)
                 .task {
@@ -41,7 +39,7 @@ struct SourceView: View {
                 }
                 .refreshable {
                     newsViewModel.fetchNewsForCategory(category:  Category.BUSINESS)
-                }
+                }.navigationTitle(Constant.SOURCES_TITLE)
             }
         }
     }
@@ -96,15 +94,15 @@ private struct ArticleContent: View {
     var newArticle: ArticleDto
     var newArticleUrl: String
     var body: some View {
-        
-        NavigationLink(destination: NewsView()) { EmptyView() }
-        Text(newArticle.source.name)
-            .font(.footnote)
-            .foregroundStyle(.pink)
-        
-        Text(newArticle.map().title)
-            .font(.subheadline)
-            .lineLimit(2)
+        VStack(alignment: .leading) {
+            Text(newArticle.source.name)
+                .font(.title)
+                .foregroundStyle(.pink)
+            
+            Text(newArticle.map().description)
+                .font(.subheadline)
+                .lineLimit(1)
+        }
     }
 }
 
