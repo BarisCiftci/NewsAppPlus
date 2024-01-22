@@ -28,7 +28,9 @@ struct NewsView: View {
                 }
                 .refreshable {
                     newsViewModel.fetchNewsForCategory(category:  Category.BUSINESS)
-                }.navigationTitle(selectedSource)
+                }
+                .navigationTitle(selectedSource)
+                .navigationBarTitleDisplayMode(.inline)
             }
         }
     }

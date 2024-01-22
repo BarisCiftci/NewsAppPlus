@@ -33,13 +33,15 @@ struct SourceView: View {
                         ArticleDetails(newArticle: article)
                     }
                 }
-                .listStyle(.plain)
+                .listStyle(.inset)
                 .task {
                     newsViewModel.fetchNewsForCategory(category: Category.BUSINESS)
                 }
                 .refreshable {
                     newsViewModel.fetchNewsForCategory(category:  Category.BUSINESS)
-                }.navigationTitle(Constant.SOURCES_TITLE)
+                }
+                .navigationTitle(Constant.SOURCES_TITLE)
+                .navigationBarTitleDisplayMode(.inline)
             }
         }
     }
@@ -94,20 +96,22 @@ private struct ArticleContent: View {
     var newArticle: ArticleDto
     var newArticleUrl: String
     var body: some View {
-        VStack(alignment: .leading) {
-            Text(newArticle.source.name)
-                .font(.title)
-                .foregroundStyle(.pink)
+            HStack {
+                Text(newArticle.source.name)
+                    .font(.headline)
+                    .fontWeight(.bold)
+                    .foregroundStyle(.pink)
+                Spacer()
+            }
             
-            Text(newArticle.map().description)
-                .font(.subheadline)
-                .lineLimit(1)
-        }
+            HStack {
+                Text(newArticle.map().description)
+                    .font(.subheadline)
+                    .lineLimit(2)
+                Spacer()
+            }
     }
 }
-
-
-
 
 #Preview {
     SourceView()
