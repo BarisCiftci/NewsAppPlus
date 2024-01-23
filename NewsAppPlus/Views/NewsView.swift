@@ -11,8 +11,21 @@ struct NewsView: View {
     
     @StateObject private var newsViewModel = NewsViewModel()
     let selectedSource: String
+    @State private var currentSlideIndex: Int = 0
+    let maxSlides = 5
     var body: some View {
         VStack{
+            TabView(selection: $currentSlideIndex) {
+                ForEach(0..<min(newsViewModel.articles.count, maxSlides), id: \.self) { slide in
+                    
+                    ArticleDetails(newArticle: newsViewModel.articles[slide])
+                }
+            }
+                .tabViewStyle(PageTabViewStyle())
+                .onAppear {
+                    startTimer()
+                }
+            
             NavigationView {
                 
                 // Display list of articles displayArticles
@@ -31,6 +44,14 @@ struct NewsView: View {
                 }
                 .navigationTitle(selectedSource)
                 .navigationBarTitleDisplayMode(.inline)
+            }
+        }
+    }
+    
+    func startTimer() {
+        let timer = Timer.scheduledTimer(withTimeInterval: 5, repeats: true) { timer in
+            withAnimation {
+                currentSlideIndex = (currentSlideIndex + 1) % min(newsViewModel.articles.filter { $0.source.name == selectedSource }.count, maxSlides)
             }
         }
     }
@@ -78,7 +99,7 @@ private struct ArticleDetails: View {
             // Display article image
             let imageUrl = newArticle.map().urlToImage
             ArticleImage(newImageUrl: imageUrl, newArticleUrl: newArticle.map().url)
-          
+            
             // Display article content
             ArticleContent(newArticle: newArticle)
         }
