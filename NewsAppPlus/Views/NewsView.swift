@@ -12,21 +12,23 @@ struct NewsView: View {
     @StateObject private var newsViewModel = NewsViewModel()
     let selectedSource: String
     @State private var currentSlideIndex: Int = 0
-    let maxSlides = 5
+    let maxSlides = 2
     @State private var isTabViewHidden = false
+    
     var body: some View {
         VStack{
+            Spacer()
             if !isTabViewHidden {
                 TabView(selection: $currentSlideIndex) {
-                    ForEach(newsViewModel.articles.filter { $0.source.name == selectedSource }, id: \.url) { slide in
+                    ForEach(0..<min(newsViewModel.articles.filter { $0.source.name == selectedSource }.count, maxSlides), id: \.self) { slide in
                         
-                        ArticleDetails(newArticle: slide)
+                        ArticleDetails(newArticle: newsViewModel.articles.filter { $0.source.name == selectedSource }[slide])
                     }
                 }
-                    .tabViewStyle(PageTabViewStyle())
-                    .onAppear {
-                        startTimer()
-                    }
+                .tabViewStyle(PageTabViewStyle())
+                .onAppear(){
+                    startTimer()
+                }
             }
             Button(action: {isTabViewHidden.toggle()}, label: {
                 Image(systemName: isTabViewHidden ? "arrow.down" : "arrow.up")
@@ -55,7 +57,7 @@ struct NewsView: View {
     }
     
     func startTimer() {
-        Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
+        Timer.scheduledTimer(withTimeInterval: 2, repeats: true) { _ in
             withAnimation {
                 currentSlideIndex = (currentSlideIndex + 1) % min(newsViewModel.articles.filter { $0.source.name == selectedSource }.count, maxSlides)
             }
