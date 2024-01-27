@@ -10,7 +10,6 @@ import Foundation
 struct Constant {
     static let APP_NAME: String = "News App"
     static let IMAGE_PLACEHOLDER: String = "photo.artframe"
-    
     static let UNKNOWN_AUTHOR: String = "Unknown Author"
     static let UNKNOWN_TITLE: String = "Unknown Title"
     static let UNKNOWN_DESCRIPTION: String = "Unknown Description"

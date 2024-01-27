@@ -13,19 +13,25 @@ struct NewsView: View {
     let selectedSource: String
     @State private var currentSlideIndex: Int = 0
     let maxSlides = 5
+    @State private var isTabViewHidden = false
     var body: some View {
         VStack{
-            TabView(selection: $currentSlideIndex) {
-                ForEach(0..<min(newsViewModel.articles.count, maxSlides), id: \.self) { slide in
-                    
-                    ArticleDetails(newArticle: newsViewModel.articles[slide])
+            if !isTabViewHidden {
+                TabView(selection: $currentSlideIndex) {
+                    ForEach(newsViewModel.articles.filter { $0.source.name == selectedSource }, id: \.url) { slide in
+                        
+                        ArticleDetails(newArticle: slide)
+                    }
                 }
+                    .tabViewStyle(PageTabViewStyle())
+                    .onAppear {
+                        startTimer()
+                    }
             }
-                .tabViewStyle(PageTabViewStyle())
-                .onAppear {
-                    startTimer()
-                }
-            
+            Button(action: {isTabViewHidden.toggle()}, label: {
+                Image(systemName: isTabViewHidden ? "arrow.down" : "arrow.up")
+                    .foregroundColor(.pink)
+            })
             NavigationView {
                 
                 // Display list of articles displayArticles
@@ -49,45 +55,11 @@ struct NewsView: View {
     }
     
     func startTimer() {
-        let timer = Timer.scheduledTimer(withTimeInterval: 5, repeats: true) { timer in
+        Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
             withAnimation {
                 currentSlideIndex = (currentSlideIndex + 1) % min(newsViewModel.articles.filter { $0.source.name == selectedSource }.count, maxSlides)
             }
         }
-    }
-}
-
-private struct CategoryChip: View {
-    let category: Category
-    @State private var isClicked = false
-    @ObservedObject var newsViewModel: NewsViewModel
-    
-    var body: some View {
-        Button(
-            action: {
-                isClicked.toggle()
-                isClicked ? newsViewModel.fetchNewsForCategory(category: category) : newsViewModel.fetchNewsForCategory(category: Category.BUSINESS)
-            },
-            label: {
-                HStack {
-                    Text(category.name())
-                    
-                    Button(
-                        action: {
-                            isClicked.toggle()
-                            isClicked ? newsViewModel.fetchNewsForCategory(category: category) : newsViewModel.fetchNewsForCategory(category: Category.BUSINESS)
-                        },
-                        label: {
-                            Image(systemName: isClicked ? Constant.CLOSE_ICON : Constant.PLUS_ICON)
-                        })
-                }
-                .foregroundStyle(.white)
-                .padding(8)
-                .padding(.leading, 8)
-                .background(isClicked ? Color.pink : Color.gray)
-                .cornerRadius(24)
-            }
-        )
     }
 }
 
@@ -135,6 +107,7 @@ private struct ArticleContent: View {
         Text(newArticle.map().title)
             .font(.headline)
             .fontWeight(.black)
+        
         Text(newArticle.map().description)
             .font(.subheadline)
             .lineLimit(2)
@@ -158,9 +131,3 @@ struct ImageModifier: ViewModifier {
             .cornerRadius(12)
     }
 }
-
-
-#Preview {
-    NewsView(selectedSource: Constant.SOURCES_TITLE)
-}
-

@@ -11,8 +11,6 @@ class UrlManager {
     private let baseUrl = "https://newsapi.org/"
     private let topHeadlinesUrl = "v2/top-headlines?"
     private let key = "e7c00742a71b450b9403d52090fc70ce"
-    private let dateFrom = "2024-01-01"
-    private let dateTo = "2024-01-19"
     
     func getUrlForCategory(category: Category) -> URL {
         let categoryName = category.name().lowercased()
@@ -21,6 +19,3 @@ class UrlManager {
         return URL(string: generatedUrl)!
     }
 }
-
-
-//https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=
