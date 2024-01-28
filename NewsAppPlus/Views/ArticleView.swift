@@ -53,9 +53,28 @@ struct ArticleNewsDetails: View {
             // Display article image
             let imageUrl = newArticle.map().urlToImage
             ArticleImage(newImageUrl: imageUrl, newArticleUrl: newArticle.map().url)
+                .modifier(ImageModifier())
             
             // Display article content
             ArticleNewsContent(newArticle: newArticle)
+        }
+    }
+}
+
+struct SlieNewsDetails: View {
+    var newArticle: ArticleDto
+    
+    var body: some View {
+        VStack(alignment: .leading) {
+            // Display article image
+            let imageUrl = newArticle.map().urlToImage
+            ArticleImage(newImageUrl: imageUrl, newArticleUrl: newArticle.map().url)
+                .aspectRatio(contentMode: .fill)
+                .frame(width: UIScreen.main.bounds.width * 0.95/1, height: UIScreen.main.bounds.height * 1/6)
+                .cornerRadius(12)
+            
+            // Display article content
+            SlideNewsContent(newArticle: newArticle)
         }
     }
 }
@@ -69,13 +88,12 @@ struct ArticleImage: View {
             NavigationLink(destination: NewsWebView(urlString: newArticleUrl)) { EmptyView() }
             AsyncImage(url: URL(string: newImageUrl)) { image in
                 image.resizable()
-                    .modifier(ImageModifier())
+                    
             }
         placeholder: {
             
             Image(systemName: Constant.IMAGE_PLACEHOLDER)
                 .resizable()
-                .modifier(ImageModifier())
         }
             
         }
@@ -105,6 +123,20 @@ struct ArticleNewsContent: View {
     }
 }
 
+struct SlideNewsContent: View {
+    var newArticle: ArticleDto
+    
+    var body: some View {
+        Text(newArticle.map().title)
+            .font(.headline)
+            .fontWeight(.black)
+            .lineLimit(1)
+        
+        Text(newArticle.source.name)
+            .font(.footnote)
+            .foregroundStyle(.pink)
+    }
+}
 struct ImageModifier: ViewModifier {
     func body(content: Content) -> some View {
         content

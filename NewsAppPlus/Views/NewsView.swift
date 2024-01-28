@@ -22,9 +22,10 @@ struct NewsView: View {
                 TabView(selection: $currentSlideIndex) {
                     ForEach(0..<min(newsViewModel.articles.filter { $0.source.name == selectedSource }.count, maxSlides), id: \.self) { slide in
                         
-                        ArticleNewsDetails(newArticle: newsViewModel.articles.filter { $0.source.name == selectedSource }[slide])
+                        SlieNewsDetails(newArticle: newsViewModel.articles.filter { $0.source.name == selectedSource }[slide])
                     }
                 }
+                .padding(.horizontal, 8)
                 .tabViewStyle(PageTabViewStyle())
                 .onAppear(){
                     startTimer()
