@@ -30,7 +30,7 @@ struct SourceView: View {
                         NavigationLink(destination: NewsView(selectedSource: article.source.name))
                         { EmptyView() }
                         // Display article details
-                        ArticleDetails(newArticle: article)
+                        ArticleSourceDetails(newArticle: article)
                     }
                 }
                 .listStyle(.inset)
@@ -44,38 +44,6 @@ struct SourceView: View {
                 .navigationBarTitleDisplayMode(.inline)
             }
         }
-    }
-}
-
-private struct ArticleDetails: View {
-    var newArticle: ArticleDto
-    
-    var body: some View {
-        VStack(alignment: .leading) {
-            // Display article content
-            ArticleContent(newArticle: newArticle, newArticleUrl: newArticle.map().url)
-        }
-    }
-}
-
-private struct ArticleContent: View {
-    var newArticle: ArticleDto
-    var newArticleUrl: String
-    var body: some View {
-            HStack {
-                Text(newArticle.source.name)
-                    .font(.headline)
-                    .fontWeight(.bold)
-                    .foregroundStyle(.pink)
-                Spacer()
-            }
-            
-            HStack {
-                Text(newArticle.map().description)
-                    .font(.subheadline)
-                    .lineLimit(2)
-                Spacer()
-            }
     }
 }
 
