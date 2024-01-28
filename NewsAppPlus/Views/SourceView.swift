@@ -18,7 +18,7 @@ struct SourceView: View {
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack {
                     ForEach(Category.allCases, id: \.self) { category in
-                        CategoryChip(category: category, newsViewModel: newsViewModel)
+                        CategoryChipsView(category: category, newsViewModel: newsViewModel)
                     }
                 }
                 .padding(.horizontal, 8)
@@ -44,40 +44,6 @@ struct SourceView: View {
                 .navigationBarTitleDisplayMode(.inline)
             }
         }
-    }
-}
-
-private struct CategoryChip: View {
-    let category: Category
-    @State private var isClicked = false
-    @ObservedObject var newsViewModel: NewsViewModel
-    
-    var body: some View {
-        Button(
-            action: {
-                isClicked.toggle()
-                isClicked ? newsViewModel.fetchNewsForCategory(category: category) : newsViewModel.fetchNewsForCategory(category: Category.BUSINESS)
-            },
-            label: {
-                HStack {
-                    Text(category.name())
-                    
-                    Button(
-                        action: {
-                            isClicked.toggle()
-                            isClicked ? newsViewModel.fetchNewsForCategory(category: category) : newsViewModel.fetchNewsForCategory(category: Category.BUSINESS)
-                        },
-                        label: {
-                            Image(systemName: isClicked ? Constant.CLOSE_ICON : Constant.PLUS_ICON)
-                        })
-                }
-                .foregroundStyle(.white)
-                .padding(8)
-                .padding(.leading, 8)
-                .background(isClicked ? Color.pink : Color.gray)
-                .cornerRadius(24)
-            }
-        )
     }
 }
 
