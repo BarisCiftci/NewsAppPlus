@@ -14,6 +14,7 @@ struct NewsView: View {
     @State private var currentSlideIndex: Int = 0
     let maxSlides = 2
     @State private var showAlert = false
+    @State private var favoriteArticles: [String] = UserDefaults.standard.stringArray(forKey: "favoriteArticles") ?? []
     
     var body: some View {
         VStack{
@@ -43,7 +44,12 @@ struct NewsView: View {
                 
                 // Display article details
                 ArticleNewsDetails(newArticle: article)
-                
+                Button(action: {
+                    toggleFavorite(article.url ?? "")
+                }) {
+                    Image(systemName: isArticleFavorite(article.url ?? "") ? "heart.fill" : "heart")
+                        .foregroundColor(isArticleFavorite(article.url ?? "") ? .red : .gray)
+                }
             }
             .listStyle(.plain)
             .task {
@@ -54,6 +60,13 @@ struct NewsView: View {
             }
             .navigationTitle(selectedSource)
             .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    NavigationLink(destination: SavedArticlesView()) {
+                        Text("Favorites")
+                    }
+                }
+            }
         }
     }
     
@@ -72,6 +85,20 @@ struct NewsView: View {
                 self.showAlert = true
             }
         }
+    }
+    
+    private func toggleFavorite(_ articleTitle: String) {
+        if isArticleFavorite(articleTitle) {
+            favoriteArticles.removeAll(where: { $0 == articleTitle })
+        } else {
+            favoriteArticles.append(articleTitle)
+        }
+        
+        UserDefaults.standard.setValue(favoriteArticles, forKey: "favoriteArticles")
+    }
+    
+    private func isArticleFavorite(_ articleTitle: String) -> Bool {
+        return favoriteArticles.contains(articleTitle)
     }
 }
 

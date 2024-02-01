@@ -25,7 +25,7 @@ struct SourceView: View {
             }
             NavigationView {
                 // Display list of articles displayArticles
-                List(newsViewModel.articles, id: \.source.name) { article in
+                List(newsViewModel.articles, id: \.source.id) { article in
                     ZStack {
                         NavigationLink(destination: NewsView(selectedSource: article.source.name))
                         { EmptyView() }
