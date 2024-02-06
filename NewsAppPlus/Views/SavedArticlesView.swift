@@ -16,7 +16,9 @@ struct SavedArticlesView: View {
         List {
             
             ForEach(favoriteArticles, id: \.self) { articleUrl in
-                Text(articleUrl)
+                NavigationLink(destination: NewsWebView(urlString: articleUrl)) {
+                    Text(articleUrl)
+                }
                 
             }
             .onDelete(perform: deleteArticle)
