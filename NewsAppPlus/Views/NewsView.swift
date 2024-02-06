@@ -45,10 +45,10 @@ struct NewsView: View {
                 // Display article details
                 ArticleNewsDetails(newArticle: article)
                 Button(action: {
-                    toggleFavorite(article.url ?? "")
+                    toggleFavorite(article.map().url)
                 }) {
-                    Image(systemName: isArticleFavorite(article.url ?? "") ? "heart.fill" : "heart")
-                        .foregroundColor(isArticleFavorite(article.url ?? "") ? .red : .gray)
+                    Image(systemName: isArticleFavorite(article.map().url) ? "heart.fill" : "heart")
+                        .foregroundColor(isArticleFavorite(article.map().url) ? .red : .gray)
                 }
             }
             .listStyle(.plain)
