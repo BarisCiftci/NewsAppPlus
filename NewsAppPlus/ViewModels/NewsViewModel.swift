@@ -12,7 +12,7 @@ class NewsViewModel: ObservableObject {
     private let urlManager: UrlManager = UrlManager()
 
     func fetchNewsForCategory(category: Category) {
-        async {
+        Task {
             do {
                 let urlSessionResult = try await URLSession.shared.data(from: urlManager.getUrlForCategory(category: category))
                 let data: Data = urlSessionResult.0

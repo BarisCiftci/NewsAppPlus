@@ -10,146 +10,95 @@ import SwiftUI
 struct NewsView: View {
     
     @StateObject private var newsViewModel = NewsViewModel()
-    @State var microsoftIsClicked = false
-    @State var appleClicked = false
+    let selectedSource: String
+    @State private var currentSlideIndex: Int = 0
+    let maxSlides = Constant.MAXIMUM_SLIDES
+    @State private var showAlert = false
+    @State private var favoriteArticles: [String] = UserDefaults.standard.stringArray(forKey: "favoriteArticles") ?? []
     
     var body: some View {
         VStack{
-            Text(Constant.NAVIGATION_TITLE)
-            
-            HStack {
-                CategoryChip(category: Category.TESLA, newsViewModel: newsViewModel)
-                CategoryChip(category: Category.MICROSOFT, newsViewModel: newsViewModel)
-                CategoryChip(category: Category.APPLE, newsViewModel: newsViewModel)
+            TabView(selection: $currentSlideIndex) {
+                ForEach(0..<min(newsViewModel.articles.filter { $0.source.name == selectedSource }.count, maxSlides), id: \.self) { slide in
+                    
+                    SlieNewsDetails(newArticle: newsViewModel.articles.filter { $0.source.name == selectedSource }[slide])
+                }
             }
+            .padding(.horizontal, 8)
+            .tabViewStyle(PageTabViewStyle())
+            .onAppear(){
+                startTimer()
+            }
+        }
+        .alert(isPresented: $showAlert) {
+                    Alert(
+                        title: Text("There is no news data"),
+                        message: Text("Please go back to source view"),
+                        dismissButton: .default(Text("OK"))
+                    )
+                }
+        NavigationView {
             
-            NavigationView {
+            // Display list of articles displayArticles
+            List(newsViewModel.articles.filter { $0.source.name == selectedSource }, id: \.url) { article in
                 
-                // Display list of articles displayArticles
-                List(newsViewModel.articles, id: \.source.id) { article in
-                    
-                    // Display article details
-                    ArticleDetails(newArticle: article)
-                    
+                // Display article details
+                ArticleNewsDetails(newArticle: article)
+                Button(action: {
+                    toggleFavorite(article.map().url)
+                }) {
+                    Image(systemName: isArticleFavorite(article.map().url) ? "heart.fill" : "heart")
+                        .foregroundColor(isArticleFavorite(article.map().url) ? .red : .gray)
                 }
-                .listStyle(.plain)
-                .task {
-                    newsViewModel.fetchNewsForCategory(category: Category.ALL)
+            }
+            .listStyle(.plain)
+            .task {
+                newsViewModel.fetchNewsForCategory(category: Category.BUSINESS)
+            }
+            .refreshable {
+                newsViewModel.fetchNewsForCategory(category:  Category.BUSINESS)
+            }
+            .navigationTitle(selectedSource)
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    NavigationLink(destination: SavedArticlesView()) {
+                        Text("Favorites")
+                    }
                 }
-                .refreshable {
-                    newsViewModel.fetchNewsForCategory(category:  Category.ALL)
-                }
-                
             }
         }
     }
-}
-
-private struct CategoryChip: View {
-    let category: Category
-    @State private var isClicked = false
-    @ObservedObject var newsViewModel: NewsViewModel
     
-    var body: some View {
-        Button(
-            action: {
-                isClicked.toggle()
-                isClicked ? newsViewModel.fetchNewsForCategory(category: category) : newsViewModel.fetchNewsForCategory(category: Category.ALL)
-            },
-            label: {
-                HStack {
-                    Text(category.name())
-                    
-                    Button(
-                        action: {
-                            isClicked.toggle()
-                            isClicked ? newsViewModel.fetchNewsForCategory(category: category) : newsViewModel.fetchNewsForCategory(category: Category.ALL)
-                        },
-                        label: {
-                            Image(systemName: isClicked ? "xmark.circle.fill" : "plus.circle.fill")
-                        })
+    func startTimer() {
+        Timer.scheduledTimer(withTimeInterval: 2, repeats: true) { _ in
+            // Filter articles by the selected source
+            let filteredArticles = newsViewModel.articles.filter { $0.source.name == selectedSource }
+            
+            // Check if the filtered articles count is greater than zero
+            if !filteredArticles.isEmpty {
+                // Update currentSlideIndex with animation
+                withAnimation {
+                    currentSlideIndex = (currentSlideIndex + 1) % min(filteredArticles.count, maxSlides)
                 }
-                .foregroundStyle(.white)
-                .padding(8)
-                .padding(.leading, 8)
-                .background(isClicked ? Color.pink : Color.gray)
-                .cornerRadius(24)
+            } else {
+                self.showAlert = true
             }
-        )
-    }
-}
-
-
-private struct ArticleDetails: View {
-    var newArticle: ArticleDto
-    
-    var body: some View {
-        VStack(alignment: .leading) {
-            // Display article image
-            let imageUrl = newArticle.map().urlToImage
-            ArticleImage(newImageUrl: imageUrl, newArticleUrl: newArticle.map().url)
-            
-            
-            // Display article content
-            ArticleContent(newArticle: newArticle)
         }
     }
-}
-
-private struct ArticleImage: View {
-    var newImageUrl: String
-    var newArticleUrl: String
     
-    var body: some View {
-        ZStack {
-            NavigationLink("", destination: NewsWebView(urlString: newArticleUrl))
-            AsyncImage(url: URL(string: newImageUrl)) { image in
-                image.resizable()
-                    .modifier(ImageModifier())
-            }
-        placeholder: {
-            
-            Image(systemName: Constant.IMAGE_PLACEHOLDER)
-                .resizable()
-                .modifier(ImageModifier())
+    private func toggleFavorite(_ articleTitle: String) {
+        if isArticleFavorite(articleTitle) {
+            favoriteArticles.removeAll(where: { $0 == articleTitle })
+        } else {
+            favoriteArticles.append(articleTitle)
         }
-            
-        }
-    }
-}
-
-private struct ArticleContent: View {
-    var newArticle: ArticleDto
-    
-    var body: some View {
-        Text(newArticle.map().title)
-            .font(.headline)
-            .fontWeight(.black)
-        Text(newArticle.map().description)
-            .font(.subheadline)
-            .lineLimit(2)
         
-        Text(newArticle.source.name)
-            .font(.footnote)
-            .foregroundStyle(.pink)
-        
-        Text(newArticle.map().author)
-            .font(.footnote)
-            .bold()
-            .foregroundStyle(.gray)
+        UserDefaults.standard.setValue(favoriteArticles, forKey: "favoriteArticles")
     }
-}
-
-struct ImageModifier: ViewModifier {
-    func body(content: Content) -> some View {
-        content
-            .aspectRatio(contentMode: .fill)
-            .frame(width: UIScreen.main.bounds.width * 0.95/1, height: UIScreen.main.bounds.height * 1/3.5)
-            .cornerRadius(12)
+    
+    private func isArticleFavorite(_ articleTitle: String) -> Bool {
+        return favoriteArticles.contains(articleTitle)
     }
-}
-
-#Preview {
-    NewsView()
 }
 

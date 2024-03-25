@@ -7,8 +7,8 @@
 
 import Foundation
 
-enum Category {
-    case APPLE, TESLA, MICROSOFT, ALL
+enum Category: CaseIterable{
+    case BUSINESS, SPORTS, TECHNOLOGY, ENTERTAINMENT, SCIENCE, HEALTH
     
     func name() -> String {
         return String(describing: self).capitalized
