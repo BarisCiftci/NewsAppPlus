@@ -12,7 +12,7 @@ struct NewsView: View {
     @StateObject private var newsViewModel = NewsViewModel()
     let selectedSource: String
     @State private var currentSlideIndex: Int = 0
-    let maxSlides = 2
+    let maxSlides = Constant.MAXIMUM_SLIDES
     @State private var showAlert = false
     @State private var favoriteArticles: [String] = UserDefaults.standard.stringArray(forKey: "favoriteArticles") ?? []
     

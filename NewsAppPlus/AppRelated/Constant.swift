@@ -20,5 +20,6 @@ struct Constant {
     static let CLOSE_ICON: String = "xmark.circle.fill"
     static let PLUS_ICON: String = "plus.circle.fill"
     static let SOURCES_TITLE: String = "Sources"
+    static let MAXIMUM_SLIDES: Int = 5
 }
 

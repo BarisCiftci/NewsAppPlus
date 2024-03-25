@@ -9,7 +9,7 @@ import Foundation
 
 class UrlManager {
     private let baseUrl = "https://newsapi.org/"
-    private let topHeadlinesUrl = "v2/top-headlines?"
+    private let topHeadlinesUrl = "v2/top-headlines?q"
     private let key = "e7c00742a71b450b9403d52090fc70ce"
     
     func getUrlForCategory(category: Category) -> URL {
